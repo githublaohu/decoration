@@ -1,7 +1,5 @@
 package com.lamp.decoration.core.result;
 
-import org.springframework.util.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -63,7 +61,6 @@ public class ResultObject<T> {
         return i > 0 ? DEFAULT_SUCCESS : DEFAULT_UPATE_FAIL;
     }
 
-    @SuppressWarnings("unchecked")
     public ResultObject(Integer code, String message) {
         if (code == null) {
             this.code = 200;
@@ -73,7 +70,6 @@ public class ResultObject<T> {
         this.message = message;
     }
 
-    @SuppressWarnings("unchecked")
     public ResultObject(Integer code, String message, T data) {
         if (code == null) {
             this.code = 200;
@@ -104,12 +100,7 @@ public class ResultObject<T> {
             this.total = page.getTotal();
             this.pageSize = page.getPageSize();
             this.currentPage = page.getPageNum();
-        } else if (data instanceof Page) {
-            Page<T> page = (Page<T>)data;
-            this.total = page.getTotal();
-            this.pageSize = page.getPageSize();
-            this.currentPage = page.getPageNumber();
-        }
+        } 
     }
 
     public Integer getCode() {

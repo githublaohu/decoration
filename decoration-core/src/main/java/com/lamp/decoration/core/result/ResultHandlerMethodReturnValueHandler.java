@@ -1,13 +1,13 @@
 package com.lamp.decoration.core.result;
 
-import java.util.Map;
 import java.util.Objects;
 
-import org.jboss.netty.util.internal.ConcurrentHashMap;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import com.lamp.decoration.core.databases.queryClauseInte.QueryClauseCentre;
 
 public class ResultHandlerMethodReturnValueHandler
     implements HandlerMethodReturnValueHandler {
@@ -28,10 +28,14 @@ public class ResultHandlerMethodReturnValueHandler
             object = ResultObject.success();
         }else if(object instanceof Integer) {// 判断是基本类型，就是修改与删除
             object = ResultObject.distinguishUpdate((Integer)returnValue);
-        }else if(object instanceof ResultObject){// 本生就是返回对象，就不任何处理
+        }else  if(object instanceof Long) {
+            object = ResultObject.success(returnValue);
+        } if(object instanceof ResultObject){// 本生就是返回对象，就不任何处理
             object = returnValue;
         } else {// 查询操作
-            object = ResultObject.success(returnValue);
+            ResultObject<Object> resultObject = ResultObject.success(returnValue);
+            QueryClauseCentre.pageData(resultObject);
+            object = resultObject;
         }
         // 封装成返回对象
         handlerMethodReturnValueHandler.handleReturnValue(object, returnType, mavContainer, webRequest);

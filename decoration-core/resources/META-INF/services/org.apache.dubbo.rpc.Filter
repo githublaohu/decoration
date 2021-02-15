@@ -1,0 +1,2 @@
+queryclause=com.lamp.decoration.core.databases.queryClauseInte.QueryClauseProviderFilter
+error=com.lamp.decoration.core.support.dubbo.ErrorFilter
