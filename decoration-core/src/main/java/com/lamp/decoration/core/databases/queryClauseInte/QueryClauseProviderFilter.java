@@ -10,12 +10,12 @@ import org.apache.dubbo.rpc.Result;
 import org.apache.dubbo.rpc.RpcContext;
 import org.apache.dubbo.rpc.RpcException;
 
-@Activate(group = PROVIDER, order = -10000)
+@Activate(group = PROVIDER, order = 0)
 public class QueryClauseProviderFilter extends ListenableFilter {
 
 
 	public QueryClauseProviderFilter() {
-		super.listener = new QueryClauseProviderListener();
+		//super.listener = new QueryClauseProviderListener();
 	}
 
 	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
@@ -30,10 +30,7 @@ public class QueryClauseProviderFilter extends ListenableFilter {
 
 		@Override
 		public void onResponse(Result appResponse, Invoker<?> invoker, Invocation invocation) {
-			RpcContext context = RpcContext.getContext();
-			QueryClauseCentre.queryClauseHandler(context.getAttachment(QueryClause.QUERY_CLAUSE_KEY));
-			Result object = invoker.invoke(invocation);
-			QueryClauseCentre.pageHandler(object.getValue());
+			
 
 		}
 

@@ -16,6 +16,7 @@ public class QueryClauseCentre {
     public static final ArrayList<RpcReturnData> RPC_RETURN_DATA_LIST = new ArrayList<>();
     
     static {
+
         try {
             PageHelperQueryClauseHandler helperQueryClauseHandler = new PageHelperQueryClauseHandler();
             QUERY_CLAUSE_HANDLER_LIST.add(helperQueryClauseHandler);
@@ -31,6 +32,7 @@ public class QueryClauseCentre {
         try {
             RpcReturnData rpcReturnData = new DubboRpcReturnData();
             RPC_RETURN_DATA_LIST.add(rpcReturnData);
+            rpcReturnData.toString();
         }catch(Throwable E) {
             
         }

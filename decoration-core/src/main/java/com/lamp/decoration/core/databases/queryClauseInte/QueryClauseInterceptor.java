@@ -1,7 +1,5 @@
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import java.util.Objects;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,10 +23,6 @@ public class QueryClauseInterceptor implements HandlerInterceptor {
 
     public String getQueryClause(HttpServletRequest request) {
         String queryClause = request.getHeader(constantConfig.getDiscern());
-        if (Objects.nonNull(queryClause)) {
-            String queryString = request.getQueryString();
-            queryString.indexOf(constantConfig.getDiscern());
-        }
         return queryClause;
     }
 }

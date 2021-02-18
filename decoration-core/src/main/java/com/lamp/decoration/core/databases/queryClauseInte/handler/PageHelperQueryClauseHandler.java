@@ -8,6 +8,10 @@ import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
 
 public class PageHelperQueryClauseHandler implements QueryClauseHandler {
 
+	public PageHelperQueryClauseHandler() {
+		PageHelper.clearPage();
+	}
+	
     public void handler(String queryClauseString) {
         QueryClause queryClause = JSON.parseObject(queryClauseString, QueryClause.class);
         if (Objects.nonNull(queryClause.getLimitStart()) && Objects.nonNull(queryClause.getLimitSize())) {
@@ -25,7 +29,7 @@ public class PageHelperQueryClauseHandler implements QueryClauseHandler {
 
     public void pageHandler(Object object) {
        
-        
+    	PageHelper.clearPage();
     }
 
 }
