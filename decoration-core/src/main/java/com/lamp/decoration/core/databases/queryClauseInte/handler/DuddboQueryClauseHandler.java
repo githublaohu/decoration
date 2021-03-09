@@ -15,10 +15,10 @@ public class DuddboQueryClauseHandler implements QueryClauseHandler {
         if(object instanceof Page) {
             @SuppressWarnings("unchecked")
             com.github.pagehelper.Page<Object> page = (com.github.pagehelper.Page<Object>)object;
-            RpcContext rpcContext = RpcContext.getContext();
-            rpcContext.setAttachment("total", Long.toString(page.getTotal()));
-            rpcContext.setAttachment("pageSize", Long.toString(page.getPageSize()));
-            rpcContext.setAttachment("currentPage", Long.toString(page.getPageNum()));
+            RpcContext serverContext = RpcContext.getServerContext();
+            serverContext.setAttachment("total", Long.toString(page.getTotal()));
+            serverContext.setAttachment("pageSize", Long.toString(page.getPageSize()));
+            serverContext.setAttachment("currentPage", Long.toString(page.getPageNum()));
         }
     }
 

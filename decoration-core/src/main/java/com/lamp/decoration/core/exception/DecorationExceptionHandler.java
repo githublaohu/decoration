@@ -9,6 +9,8 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +21,8 @@ import com.lamp.decoration.core.result.ResultObject;
 @ControllerAdvice
 public class DecorationExceptionHandler {
 
+	private static final Log logger = LogFactory.getLog("decoration exception");
+	
 	private ExceptionResult defaultExceptionResult;
 
 	private Map<Class<?>, ExceptionResult> exceptionResultMap = new HashMap<>();
@@ -34,6 +38,7 @@ public class DecorationExceptionHandler {
 	@ExceptionHandler(Throwable.class)
 	public ModelAndView exceptionHandlerResponseBody(Throwable e, HttpServletResponse response,
 			HttpServletRequest httpServletRequest) {
+		logger.error( e.getMessage(), e);
 		ExceptionResult exceptionResult = exceptionResultMap.get(e.getClass());
 		if (Objects.isNull(exceptionResult)) {
 			exceptionResult = defaultExceptionResult;

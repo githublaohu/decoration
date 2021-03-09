@@ -9,12 +9,11 @@ import com.lamp.decoration.core.result.ResultObject;
 public class DubboRpcReturnData implements RpcReturnData {
 
     public void pageData(ResultObject<Object> resultObject) {
-        RpcContext context = RpcContext.getContext();
-        Map<String, String> attachments = context.getAttachments();
+        Map<String, String> attachments = RpcContext.getServerContext().getAttachments();
         if(attachments.containsKey("total")) {
-            resultObject.setTotal(Long.valueOf(context.getAttachment("total")));
-            resultObject.setCurrentPage(Integer.valueOf(context.getAttachment("currentPage")));
-            resultObject.setPageSize(Integer.valueOf(context.getAttachment("pageSize")));
+            resultObject.setTotal(Long.valueOf(attachments.get("total")));
+            resultObject.setCurrentPage(Integer.valueOf(attachments.get("currentPage")));
+            resultObject.setPageSize(Integer.valueOf(attachments.get("pageSize")));
         }
     }
 

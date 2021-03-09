@@ -57,7 +57,6 @@ public class ResultHandlerMethodReturnValueHandler implements HandlerMethodRetur
 	@Override
 	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
