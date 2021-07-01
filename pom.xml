@@ -3,10 +3,16 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>lamp</groupId>
+	<groupId>cn.lampup</groupId>
 	<artifactId>decoration</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${reversion}</version>
 	<packaging>pom</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<reversion>0.0.1</reversion>
+	</properties>
+
 	<modules>
 		<module>decoration-core</module>
 	</modules>
@@ -25,10 +31,6 @@
 						<testIncludes>
 							<testInclude>none</testInclude>
 						</testIncludes>
-						<!-- <annotationProcessorPaths> <path> <groupId>org.mapstruct</groupId> 
-							<artifactId>mapstruct-processor</artifactId> <version>${mapstruct.version}</version> 
-							</path> <path> <groupId>org.projectlombok</groupId> <artifactId>lombok</artifactId> 
-							<version>${lombok.version}</version> </path> </annotationProcessorPaths> -->
 					</configuration>
 				</plugin>
 				<plugin>
@@ -53,22 +55,6 @@
 							<goals>
 								<goal>jdkinternals</goal>
 								<goal>test-jdkinternals</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>3.0.0</version>
-					<configuration>
-						<attach>true</attach>
-					</configuration>
-					<executions>
-						<execution>
-							<id>attach-sources</id>
-							<goals>
-								<goal>jar-no-fork</goal>
 							</goals>
 						</execution>
 					</executions>
@@ -102,7 +88,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
+				<version>3.0.0</version>
+				<configuration>
+					<attach>true</attach>
+				</configuration>
 				<executions>
 					<execution>
 						<id>attach-sources</id>
@@ -112,7 +101,15 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<generateBackupPoms>false</generateBackupPoms>
+					<newVersion>${reversion}</newVersion>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

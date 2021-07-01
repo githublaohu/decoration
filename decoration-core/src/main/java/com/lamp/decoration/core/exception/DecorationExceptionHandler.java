@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,9 +46,20 @@ public class DecorationExceptionHandler {
 		if (Objects.isNull(exceptionResult)) {
 			exceptionResult = defaultExceptionResult;
 		}
+		String errorMessage = null;
+        if(e instanceof MethodArgumentNotValidException){
+            FieldError fieldError = ((MethodArgumentNotValidException)e).getBindingResult().getFieldError();
+            errorMessage = String.format("[参数验证出错] %s <%s>", fieldError.getDefaultMessage(), fieldError.getField());
+        }else  if(e instanceof BindException){
+            FieldError fieldError = ((BindException)e).getFieldError();
+            errorMessage = String.format("[参数验证出错] %s <%s>", fieldError.getDefaultMessage(), fieldError.getField());
+        }else {
+        	errorMessage = e.getMessage();
+        }
+		
 		// 第一个换行\n
-		ResultObject<String> object = new ResultObject<String>(defaultExceptionResult.getCode(),
-				defaultExceptionResult.getMessage(), e.getMessage());
+		ResultObject<String> object = new ResultObject<String>(exceptionResult.getCode(),
+				exceptionResult.getMessage(), errorMessage);
 		return new ModelAndView(new DecorationMappingJackson2JsonView(object));
 	}
 

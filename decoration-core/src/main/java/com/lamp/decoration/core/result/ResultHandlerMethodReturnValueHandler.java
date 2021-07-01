@@ -30,11 +30,11 @@ public class ResultHandlerMethodReturnValueHandler implements HandlerMethodRetur
         if(Objects.isNull(returnValue)) {
             // 直接返回成功
             object = ResultObject.success();
-        }else if(object instanceof Integer) {// 判断是基本类型，就是修改与删除
+        }else if(returnValue instanceof Integer) {// 判断是基本类型，就是修改与删除
             object = ResultObject.distinguishUpdate((Integer)returnValue);
-        }else  if(object instanceof Long) {
+        }else  if(returnValue instanceof Long) {
             object = ResultObject.success(returnValue);
-        } if(Objects.nonNull(returnValue) && object instanceof ResultObject){// 本生就是返回对象，就不任何处理
+        }else if( returnValue instanceof ResultObject){// 本生就是返回对象，就不任何处理
             object = returnValue;
         } else if(returnValue instanceof Throwable) {
         	Throwable throwable = (Throwable)returnValue;
