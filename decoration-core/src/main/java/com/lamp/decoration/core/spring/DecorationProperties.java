@@ -5,10 +5,6 @@ import java.util.List;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 完成一下功能，decoration基本结束了
- * <ol>防止重复提交—— 等下ledis，两天就可以完成</ol>
- * <ol>query 字段过滤,支持其他RPC,openfeign（拦截器-RequestInterceptor） ZoneAvoidanceRule</ol>
- * <ol>ValidationUtils </ol>
  * 
  * @author laohu
  *
@@ -21,6 +17,10 @@ public class DecorationProperties {
 	private String defaultExceptionResult;
 	
 	private List<String> exceptionResult;
+	
+	private String resultObject;
+	
+	
 
 	public String getDefaultExceptionResult() {
 		return defaultExceptionResult;
@@ -37,4 +37,14 @@ public class DecorationProperties {
 	public void setExceptionResult(List<String> exceptionResult) {
 		this.exceptionResult = exceptionResult;
 	}
+
+	public String getResultObject() {
+		return resultObject;
+	}
+
+	public void setResultObject(String resultObject) {
+		this.resultObject = resultObject;
+	}
+	
+	
 }
