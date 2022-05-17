@@ -28,7 +28,7 @@ public class ResultObject<T> {
     private static final ResultObject<String> DEFAULT_FAIL = new ResultObject<String>(20000, "执行失败");
 
     private static final ResultObject<String> DEFAULT_UPATE_FAIL = new ResultObject<String>(20000, "修改数据失败");
-
+    
     private Integer code;
 
     private String message;
@@ -92,7 +92,7 @@ public class ResultObject<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public ResultObject(Integer code, String message, T data, String errorMessages, Integer currentPage,
+	public ResultObject(Integer code, String message, T data, String errorMessages, Integer currentPage,
         Integer pageSize, Long total) {
         if (code == null) {
             this.code = 200;
@@ -105,13 +105,7 @@ public class ResultObject<T> {
         this.currentPage = currentPage;
         this.pageSize = pageSize;
         this.total = total;
-        // 适配别人对象？
-        if (data instanceof com.github.pagehelper.Page) {
-            com.github.pagehelper.Page<T> page = (com.github.pagehelper.Page<T>)data;
-            this.total = page.getTotal();
-            this.pageSize = page.getPageSize();
-            this.currentPage = page.getPageNum();
-        } 
+        AdaptationPageService.getInstance().adaptation((ResultObject<Object>) this, data);
     }
 
     public Integer getCode() {

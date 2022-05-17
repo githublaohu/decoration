@@ -31,7 +31,7 @@ public class DecorationProperties {
 	
 	private String resultObject;
 	
-	
+	private boolean enable;
 
 	public String getDefaultExceptionResult() {
 		return defaultExceptionResult;
@@ -55,6 +55,14 @@ public class DecorationProperties {
 
 	public void setResultObject(String resultObject) {
 		this.resultObject = resultObject;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
 	
 	

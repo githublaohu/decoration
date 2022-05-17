@@ -17,12 +17,24 @@ public class ExceptionResult {
 
 	private String className;
 	
+	/**
+	 * 异常类
+	 */
 	private Class<?> clazz;
 	
+	/**
+	 * 返回视图类型
+	 */
 	private ExceptionResultTypeEnum resultType;
 	
+	/**
+	 * 返回code
+	 */
 	private Integer code;
 	
+	/**
+	 * 消息内容
+	 */
 	private String message;
 
 	public String getClassName() {

@@ -41,6 +41,7 @@ public abstract class AbstractDuplicateCheck implements DuplicateCheck {
 
 	abstract boolean check(DuplicateSubmissionData duplicateSubmissionData);
 
+	@SuppressWarnings("unused")
 	String getCheckIdentification(DuplicateSubmissionData duplicateSubmissionData) {
 		HttpServletRequest request = ((ServletRequestAttributes) (RequestContextHolder.currentRequestAttributes()))
 				.getRequest();

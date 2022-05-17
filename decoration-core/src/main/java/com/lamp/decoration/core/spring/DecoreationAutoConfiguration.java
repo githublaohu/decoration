@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,13 +24,14 @@ import com.lamp.decoration.core.duplicate.DuplicateCheck;
 import com.lamp.decoration.core.duplicate.DuplicateSubmissionHandlerInterceptor;
 import com.lamp.decoration.core.duplicate.LocadDuplicateCheck;
 import com.lamp.decoration.core.exception.CustomExceptionResult;
+import com.lamp.decoration.core.exception.DecorationCustomExceptionResult;
 import com.lamp.decoration.core.exception.DecorationExceptionHandler;
 import com.lamp.decoration.core.exception.ExceptionResult;
 import com.lamp.decoration.core.result.DecorationResultAction;
 import com.lamp.decoration.core.result.ResultAction;
 
-@ConditionalOnClass(name = { "org.springframework.web.servlet.HandlerInterceptor" })
 @Configuration
+@ConditionalOnClass(name = { "org.springframework.web.servlet.HandlerInterceptor" })
 @EnableConfigurationProperties(DecorationProperties.class)
 public class DecoreationAutoConfiguration {
 
@@ -61,17 +61,21 @@ public class DecoreationAutoConfiguration {
 		return new DuplicateSubmissionHandlerInterceptor(duplicateCheck);
 	}
 
+	
 	@Bean
-	@ConditionalOnProperty(prefix = DecorationProperties.DECORATION_PREFIX, value = { "defaultExceptionResult" })
+	
 	public DecorationExceptionHandler decorationExceptionHandler(DecorationProperties decorationProperties)
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		List<ExceptionResult> exceptionResultList = new ArrayList<>();
 
-		CustomExceptionResult exceptionResult = (CustomExceptionResult) Class
-				.forName(decorationProperties.getDefaultExceptionResult()).newInstance();
-		if (Objects.isNull(exceptionResult.getDefaultExceptionResult())) {
-			throw new RuntimeException("defaultExceptionResult not  null ");
+		CustomExceptionResult exceptionResult;
+		if(Objects.nonNull(decorationProperties.getDefaultExceptionResult())) {
+			exceptionResult = (CustomExceptionResult) Class.forName(decorationProperties.getDefaultExceptionResult()).newInstance();
+		}else {
+			exceptionResult = new DecorationCustomExceptionResult();
 		}
+		
+		
+		List<ExceptionResult> exceptionResultList = new ArrayList<>();
 		if (Objects.nonNull(exceptionResult.getExceptionResultList())) {
 			exceptionResultList.addAll(exceptionResult.getExceptionResultList());
 		}
@@ -88,6 +92,9 @@ public class DecoreationAutoConfiguration {
 		}
 		return new DecorationExceptionHandler(exceptionResultList, exceptionResult.getDefaultExceptionResult());
 	}
+
+	
+
 
 	@Bean
 	@ConditionalOnClass(name= {"feign.RequestInterceptor"})

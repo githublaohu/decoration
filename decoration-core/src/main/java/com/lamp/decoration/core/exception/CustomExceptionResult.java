@@ -15,7 +15,15 @@ import java.util.List;
 
 public interface CustomExceptionResult {
 
+	/**
+	 * 默认返回，如果异常类没有对应的ExceptionResult，会使用默认的ExceptionResult
+	 * @return
+	 */
 	public ExceptionResult getDefaultExceptionResult() ;
 	
+	/**
+	 * 异常返回
+	 * @return
+	 */
 	public List<ExceptionResult> getExceptionResultList();
 }

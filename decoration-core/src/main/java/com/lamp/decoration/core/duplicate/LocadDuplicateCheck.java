@@ -38,6 +38,7 @@ public class LocadDuplicateCheck extends AbstractDuplicateCheck {
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void unlock(DuplicateSubmissionData duplicateSubmissionData) {
 		Map<String /*校验id*/,Long> typeMap = duplicateRecord.get(duplicateSubmissionData.duplicateName);

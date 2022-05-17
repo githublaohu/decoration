@@ -5,6 +5,26 @@
 2. 统一 spring mvc 异常
 3. 隐式分页功能
 4. 防止重复提交
+5. 单元测试
+
+
+## 使用
+
+#### maven依赖
+```xml
+<dependency>
+	<groupId>cn.lampup</groupId>
+	<artifactId>decoration-core</artifactId>
+	<version>${version}</version>
+</dependency>
+```
+
+#### spring boot 启动
+```yaml
+
+decoration: {class}
+
+```
 
 
 ## 统一 spring mvc result
@@ -45,6 +65,94 @@
 |      |           |          |              |
 
 #### 使用方式
+
+
+
+##### ExceptionResult
+> 异常返回类，定义异常类型
+
+```java
+
+public class ExceptionResult {
+
+	private String className;
+	
+	/**
+	 * 异常类
+	 */
+	private Class<?> clazz;
+	
+	/**
+	 * 返回视图类型
+	 */
+	private ExceptionResultTypeEnum resultType;
+	
+	/**
+	 * 返回code
+	 */
+	private Integer code;
+	
+	/**
+	 * 消息内容
+	 */
+	private String message;
+}
+
+```
+
+##### decoration默认方式
+```java
+public class DecorationCustomExceptionResult implements CustomExceptionResult {
+	ExceptionResult exceptionResult;
+
+    {
+        exceptionResult = new ExceptionResult();
+        exceptionResult.setCode(400);
+        exceptionResult.setMessage("系统出现异常");
+        exceptionResult.setResultType(ExceptionResultTypeEnum.JSON);
+
+    }
+
+    @Override
+    public ExceptionResult getDefaultExceptionResult() {
+        return exceptionResult;
+    }
+
+    @Override
+    public List<ExceptionResult> getExceptionResultList() {
+        return null;
+    }
+}
+
+```
+
+
+
+##### 自定义
+```java
+public class DecorationCustomExceptionResult implements CustomExceptionResult {
+	ExceptionResult exceptionResult;
+
+    {
+        exceptionResult = new ExceptionResult();
+        exceptionResult.setCode(400);
+        exceptionResult.setMessage("系统出现异常");
+        exceptionResult.setResultType(ExceptionResultTypeEnum.JSON);
+
+    }
+
+    @Override
+    public ExceptionResult getDefaultExceptionResult() {
+        return exceptionResult;
+    }
+
+    @Override
+    public List<ExceptionResult> getExceptionResultList() {
+        return null;
+    }
+}
+
+``` 
 
 
 ## 隐式分页功能
@@ -97,5 +205,10 @@ public void overbooking(Map<String,String> parameter){
 
 
  * <ol>ValidationUtils </ol>
+ 
+
+## 单元测试
+1. mvc单元测试
+2. 持久层单元测试
 
 mvn clean deploy javadoc:javadoc -P release
