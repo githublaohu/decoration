@@ -12,6 +12,7 @@
 package com.lamp.decoration.core.spring;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,8 +57,16 @@ public class OperationSpringMVCBehavior   implements ApplicationContextAware, Ap
             
             Class<?> clazz = Class.forName("java.util.Collections$UnmodifiableList");
             Field field = clazz.getDeclaredField("list");
+            
+            Field[] fields = Field.class.getDeclaredFields();
+            
+            Field modifersField = field.getClass().getDeclaredField("modifiers");
+            modifersField.setAccessible(true);
+            modifersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            
             field.setAccessible(true);
             handlers = (List<HandlerMethodReturnValueHandler>)field.get(handlers);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

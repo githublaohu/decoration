@@ -1,0 +1,39 @@
+server:
+  port: 12110
+
+spring:
+  datasource:
+    name: hardware
+    url: jdbc:h2:mem:dbtest
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    filters: config,stat,slf4j
+
+mybatis:
+  checkConfig-location : false
+  configuration:
+    useGeneratedKeys: true
+    mapUnderscoreToCamelCase: true
+
+pagehelper:
+  helperDialect: h2
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+decoration:
+   defaultExceptionResult: com.lamp.decoration.example.ExampleExceptionResult
