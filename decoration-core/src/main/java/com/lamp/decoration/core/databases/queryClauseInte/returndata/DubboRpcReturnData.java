@@ -19,6 +19,7 @@ import com.lamp.decoration.core.result.ResultObject;
 
 public class DubboRpcReturnData implements RpcReturnData {
 
+    @Override
     public void pageData(ResultObject<Object> resultObject) {
         Map<String, String> attachments = RpcContext.getServerContext().getAttachments();
         if(attachments.containsKey("total")) {

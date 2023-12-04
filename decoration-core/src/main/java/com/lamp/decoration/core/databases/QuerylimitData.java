@@ -9,29 +9,21 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
-package com.lamp.decoration.core.result;
+package com.lamp.decoration.core.databases;
 
-public interface ResultAction<T> {
+/**
+ * @author laohu
+ */
+public class QuerylimitData {
 
-	public Class<?> resultClass();
-	
-	public T success();
-	
-	public T fail();
-	
-	public T voidResult();
-	
-	public T updateResult(Integer data);
-	
-	public T longResult(Long data);
-	
-	public T objectResult(Object data);
-	
-	public T throwableResult(Throwable data);
-	
-	public default T resultObject(T data) {
-		return data;
-	}
-	
-	public T enumResult(Object data);
+    private boolean queryLimit = false;
+
+
+    public boolean isQueryLimit() {
+        return queryLimit;
+    }
+
+    public void setQueryLimit(boolean queryLimit) {
+        this.queryLimit = queryLimit;
+    }
 }

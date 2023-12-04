@@ -11,21 +11,21 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
+import com.lamp.decoration.core.databases.QuerylimitData;
 import com.lamp.decoration.core.databases.queryClauseInte.handler.DuddboQueryClauseHandler;
 import com.lamp.decoration.core.databases.queryClauseInte.handler.PageHelperQueryClauseHandler;
 import com.lamp.decoration.core.databases.queryClauseInte.handler.QueryClauseHandler;
 import com.lamp.decoration.core.databases.queryClauseInte.returndata.DubboRpcReturnData;
 import com.lamp.decoration.core.databases.queryClauseInte.returndata.RpcReturnData;
 import com.lamp.decoration.core.result.ResultObject;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class QueryClauseCentre {
     public static final ArrayList<QueryClauseHandler> QUERY_CLAUSE_HANDLER_LIST = new ArrayList<>();
 
     public static final ArrayList<RpcReturnData> RPC_RETURN_DATA_LIST = new ArrayList<>();
-    
+
     static {
 
         try {
@@ -44,31 +44,36 @@ public class QueryClauseCentre {
             RpcReturnData rpcReturnData = new DubboRpcReturnData();
             RPC_RETURN_DATA_LIST.add(rpcReturnData);
             rpcReturnData.toString();
-        }catch(Throwable E) {
-            
+        } catch (Throwable E) {
+
         }
     }
-    
-    public static void queryClauseHandler(String queryClause) {
-        if(Objects.isNull(queryClause) || QUERY_CLAUSE_HANDLER_LIST.isEmpty()) {
+
+    public static void queryClauseHandler(String queryClause, QuerylimitData querylimit) {
+
+        if (Objects.isNull(queryClause)) {
+            throw new RuntimeException(" must queryClause");
+        }
+
+        if (QUERY_CLAUSE_HANDLER_LIST.isEmpty()) {
             return;
         }
-        for(QueryClauseHandler queryClauseHandler : QUERY_CLAUSE_HANDLER_LIST) {
+        for (QueryClauseHandler queryClauseHandler : QUERY_CLAUSE_HANDLER_LIST) {
             queryClauseHandler.handler(queryClause);
         }
     }
-    
+
     public static void pageHandler(Object object) {
-        if(Objects.isNull(object)) {
-            return ;
+        if (Objects.isNull(object)) {
+            return;
         }
-        for(QueryClauseHandler queryClauseHandler : QUERY_CLAUSE_HANDLER_LIST) {
+        for (QueryClauseHandler queryClauseHandler : QUERY_CLAUSE_HANDLER_LIST) {
             queryClauseHandler.pageHandler(object);
         }
     }
-    
+
     public static void pageData(ResultObject<Object> resultObject) {
-        for(RpcReturnData rpcReturnData : RPC_RETURN_DATA_LIST) {
+        for (RpcReturnData rpcReturnData : RPC_RETURN_DATA_LIST) {
             rpcReturnData.pageData(resultObject);
         }
     }

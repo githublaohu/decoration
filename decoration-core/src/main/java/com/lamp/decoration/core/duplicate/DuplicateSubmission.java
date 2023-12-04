@@ -11,6 +11,9 @@
  */
 package com.lamp.decoration.core.duplicate;
 
+/**
+ * @author laohu
+ */
 public @interface DuplicateSubmission {
 
 	long intervalTime() default 3000;

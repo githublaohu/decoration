@@ -14,26 +14,30 @@ package com.lamp.decoration.core.databases.queryClauseInte;
 import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.databases.Querylimit;
 import com.lamp.decoration.core.databases.QuerylimitData;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.dubbo.rpc.Invoker;
+import com.lamp.decoration.core.databases.queryClauseInte.QueryClauseCentre;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-public class QueryClauseInterceptor implements HandlerInterceptor {
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * @author laohu
+ */
+public class JakartaQueryClauseInterceptor implements HandlerInterceptor {
 
     private ConcurrentHashMap<Object, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();
 
     private ConstantConfig constantConfig;
 
-    public QueryClauseInterceptor(ConstantConfig constantConfig) {
+    public JakartaQueryClauseInterceptor(ConstantConfig constantConfig) {
         this.constantConfig = constantConfig;
     }
 
-    @Override
+
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
 

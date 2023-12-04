@@ -16,6 +16,10 @@ import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
 public class ConstantConfig {
 
     private String discern = QueryClause.QUERY_CLAUSE_KEY;
+
+    private boolean all = false;
+
+    private String spot = "header";
     
     private String pageSize = "pageSize";
     
@@ -23,7 +27,7 @@ public class ConstantConfig {
     
     private String orderBy = "orderBy";
     
-    private String groudBy = "groudBy";
+    private String groupBy = "groupBy";
     
 
     public String getDiscern() {
@@ -35,11 +39,11 @@ public class ConstantConfig {
     }
 
     public String getGroudBy() {
-        return groudBy;
+        return groupBy;
     }
 
     public void setGroudBy(String groudBy) {
-        this.groudBy = groudBy;
+        this.groupBy = groudBy;
     }
 
     public String getPageSize() {
@@ -64,5 +68,21 @@ public class ConstantConfig {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public String getSpot() {
+        return spot;
+    }
+
+    public void setSpot(String spot) {
+        this.spot = spot;
+    }
+
+    public boolean isAll() {
+        return all;
+    }
+
+    public void setAll(boolean all) {
+        this.all = all;
     }
 }

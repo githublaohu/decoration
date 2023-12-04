@@ -12,8 +12,14 @@
 package com.lamp.decoration.core.databases.queryClauseInte;
 
 import static org.apache.dubbo.common.constants.CommonConstants.PROVIDER;
-
+import com.lamp.decoration.core.ConstantConfig;
+import com.lamp.decoration.core.databases.Querylimit;
+import com.lamp.decoration.core.databases.QuerylimitData;
+import java.lang.reflect.Method;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker;
 import org.apache.dubbo.rpc.Invocation;
 import org.apache.dubbo.rpc.Invoker;
 import org.apache.dubbo.rpc.ListenableFilter;
@@ -24,32 +30,60 @@ import org.apache.dubbo.rpc.RpcException;
 @Activate(group = PROVIDER, order = 0)
 public class QueryClauseProviderFilter extends ListenableFilter {
 
+    private ConcurrentHashMap<Invoker<?>, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();
 
-	public QueryClauseProviderFilter() {
-		//super.listener = new QueryClauseProviderListener();
-	}
+    private ConstantConfig constantConfig;
 
-	public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
-		RpcContext context = RpcContext.getContext();
-		QueryClauseCentre.queryClauseHandler(context.getAttachment(QueryClause.QUERY_CLAUSE_KEY));
-		Result object = invoker.invoke(invocation);
-		QueryClauseCentre.pageHandler(object.getValue());
-		return object;
-	}
+    public QueryClauseProviderFilter() {
+        //super.listener = new QueryClauseProviderListener();
+    }
 
-	static class QueryClauseProviderListener implements Listener {
+    @Override
+    public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
+        RpcContext context = RpcContext.getContext();
+        QuerylimitData querylimitData = querylimitMap.get(invoker);
+        if (Objects.isNull(querylimitData)) {
+            querylimitData = new QuerylimitData();
+            querylimitMap.put(invoker,querylimitData);
+            if (invoker instanceof DelegateProviderMetaDataInvoker) {
+                DelegateProviderMetaDataInvoker<?> delegateProviderMetaDataInvoker =
+                        (DelegateProviderMetaDataInvoker<?>) invoker;
+                Object ref = delegateProviderMetaDataInvoker.getMetadata().getRef();
+                try {
+                    Method method =
+                            ref.getClass().getMethod(invocation.getMethodName(), invocation.getParameterTypes());
+                    Querylimit querylimit = method.getAnnotation(com.lamp.decoration.core.databases.Querylimit.class);
+                    if(Objects.nonNull(querylimit)) {
+                        querylimitData.setQueryLimit(true);
+                    }
+                } catch (NoSuchMethodException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        if (!querylimitData.isQueryLimit()) {
+            return invoker.invoke(invocation);
+        }
+        QueryClauseCentre.queryClauseHandler(context.getAttachment(QueryClause.QUERY_CLAUSE_KEY), null);
+        Result object = invoker.invoke(invocation);
+        QueryClauseCentre.pageHandler(object.getValue());
+        return object;
+    }
 
-		@Override
-		public void onResponse(Result appResponse, Invoker<?> invoker, Invocation invocation) {
-			
 
-		}
+    class QueryClauseProviderListener implements Listener {
 
-		@Override
-		public void onError(Throwable t, Invoker<?> invoker, Invocation invocation) {
+        @Override
+        public void onResponse(Result appResponse, Invoker<?> invoker, Invocation invocation) {
 
-		}
 
-	}
+        }
+
+        @Override
+        public void onError(Throwable t, Invoker<?> invoker, Invocation invocation) {
+
+        }
+
+    }
 
 }

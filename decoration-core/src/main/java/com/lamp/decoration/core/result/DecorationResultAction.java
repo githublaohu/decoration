@@ -53,7 +53,7 @@ public class DecorationResultAction implements ResultAction<ResultObject<Object>
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public ResultObject LongResult(Long data) {
+	public ResultObject longResult(Long data) {
 		return ResultObject.success(data);
 	}
 

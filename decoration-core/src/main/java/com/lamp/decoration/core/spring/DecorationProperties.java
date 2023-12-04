@@ -11,8 +11,10 @@
  */
 package com.lamp.decoration.core.spring;
 
+import com.lamp.decoration.core.spring.plugs.DecorationCorsConfiguration;
 import java.util.List;
 
+import com.lamp.decoration.core.spring.plugs.Swagger2Configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -32,6 +34,24 @@ public class DecorationProperties {
 	private String resultObject;
 	
 	private boolean enable;
+
+	private boolean corsEnable = false;
+
+	private List<DecorationCorsConfiguration> corsConfigurationList;
+
+	private Swagger2Configuration swagger2Config;
+
+
+	public List<DecorationCorsConfiguration> getCorsConfigurationList() {
+		return corsConfigurationList;
+	}
+
+	public void setCorsConfigurationList(
+			List<DecorationCorsConfiguration> corsConfigurationList) {
+		this.corsConfigurationList = corsConfigurationList;
+	}
+
+
 
 	public String getDefaultExceptionResult() {
 		return defaultExceptionResult;
@@ -64,6 +84,20 @@ public class DecorationProperties {
 	public void setEnable(boolean enable) {
 		this.enable = enable;
 	}
-	
-	
+
+	public Swagger2Configuration getSwagger2Config() {
+		return swagger2Config;
+	}
+
+	public void setSwagger2Config(Swagger2Configuration swagger2Config) {
+		this.swagger2Config = swagger2Config;
+	}
+
+	public boolean isCorsEnable() {
+		return corsEnable;
+	}
+
+	public void setCorsEnable(boolean corsEnable) {
+		this.corsEnable = corsEnable;
+	}
 }
