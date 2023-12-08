@@ -11,22 +11,23 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import static org.apache.dubbo.common.constants.CommonConstants.PROVIDER;
 import com.lamp.decoration.core.ConstantConfig;
+import com.lamp.decoration.core.DecorationContext;
 import com.lamp.decoration.core.databases.Querylimit;
 import com.lamp.decoration.core.databases.QuerylimitData;
+import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker;
+import org.apache.dubbo.rpc.*;
+
 import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import org.apache.dubbo.common.extension.Activate;
-import org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker;
-import org.apache.dubbo.rpc.Invocation;
-import org.apache.dubbo.rpc.Invoker;
-import org.apache.dubbo.rpc.ListenableFilter;
-import org.apache.dubbo.rpc.Result;
-import org.apache.dubbo.rpc.RpcContext;
-import org.apache.dubbo.rpc.RpcException;
 
+import static org.apache.dubbo.common.constants.CommonConstants.PROVIDER;
+
+/**
+ * @author laohu
+ */
 @Activate(group = PROVIDER, order = 0)
 public class QueryClauseProviderFilter extends ListenableFilter {
 
@@ -61,12 +62,12 @@ public class QueryClauseProviderFilter extends ListenableFilter {
                 }
             }
         }
-        if (!querylimitData.isQueryLimit()) {
-            return invoker.invoke(invocation);
+        if (querylimitData.isQueryLimit()) {
+            QueryClauseCentre.queryClauseHandler(context.getAttachment(QueryClause.QUERY_CLAUSE_KEY), null);
         }
-        QueryClauseCentre.queryClauseHandler(context.getAttachment(QueryClause.QUERY_CLAUSE_KEY), null);
         Result object = invoker.invoke(invocation);
         QueryClauseCentre.pageHandler(object.getValue());
+        DecorationContext.get().close();
         return object;
     }
 

@@ -27,11 +27,17 @@ public class ResultObject<T> {
 
     private static final ResultObject<String> DEFAULT_FAIL = new ResultObject<String>(20000, "执行失败");
 
-    private static final ResultObject<String> DEFAULT_UPATE_FAIL = new ResultObject<String>(20000, "修改数据失败");
-    
+    private static final ResultObject<String> DEFAULT_UPATE_FAIL = new ResultObject<String>(20001, "修改数据失败");
+
+    public static final ResultObject<String> DEFAULT_DUPLICATE_FAIL = new ResultObject<String>(30010, "短时间重复请求");
+
+
     private Integer code;
 
     private String message;
+
+    @JsonInclude(value = Include.NON_NULL)
+    private String errorCode;
 
     // @JsonInclude(value = Include.NON_NULL)
     private T data;
@@ -106,6 +112,10 @@ public class ResultObject<T> {
         this.pageSize = pageSize;
         this.total = total;
         AdaptationPageService.getInstance().adaptation((ResultObject<Object>) this, data);
+    }
+
+    public void setErrorCode(String errorCode){
+        this.errorCode = errorCode;
     }
 
     public Integer getCode() {

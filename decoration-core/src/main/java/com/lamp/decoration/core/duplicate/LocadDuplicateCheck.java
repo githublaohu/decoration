@@ -15,24 +15,25 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.lamp.decoration.core.duplicate.DuplicateSubmissionHandlerInterceptor.DuplicateSubmissionData;
-
+/**
+ * 本地换成做认证
+ */
 public class LocadDuplicateCheck extends AbstractDuplicateCheck {
 
 	Map<String/* 方法名 */,Map<String /*校验id*/,Long>> duplicateRecord = new ConcurrentHashMap<>();
 	
 	@Override
 	boolean check(DuplicateSubmissionData duplicateSubmissionData) {
-		Map<String /*校验id*/,Long> typeMap = duplicateRecord.get(duplicateSubmissionData.duplicateName);
+		Map<String /*校验id*/,Long> typeMap = duplicateRecord.get(duplicateSubmissionData.getDuplicateName());
 		if(Objects.isNull(typeMap)) {
-			typeMap = duplicateRecord.computeIfAbsent(duplicateSubmissionData.duplicateName, key -> new ConcurrentHashMap<>() );
+			typeMap = duplicateRecord.computeIfAbsent(duplicateSubmissionData.getDuplicateName(), key -> new ConcurrentHashMap<>() );
 		}
 		Long currentTime = System.currentTimeMillis();
-		Long loasTime = typeMap.computeIfPresent(getCheckIdentification(duplicateSubmissionData), (key,value) -> currentTime);
-		if(Objects.isNull(loasTime)) {
+		Long loadsTime = typeMap.computeIfPresent(getCheckIdentification(duplicateSubmissionData), (key,value) -> currentTime);
+		if(Objects.isNull(loadsTime)) {
 			return false;
 		}
-		if( currentTime > loasTime+ duplicateSubmissionData.intervalTime) {
+		if( currentTime > loadsTime+ duplicateSubmissionData.getIntervalTime()) {
 			return false;
 		}
 		return true;
@@ -41,7 +42,7 @@ public class LocadDuplicateCheck extends AbstractDuplicateCheck {
 	@SuppressWarnings("unused")
 	@Override
 	public void unlock(DuplicateSubmissionData duplicateSubmissionData) {
-		Map<String /*校验id*/,Long> typeMap = duplicateRecord.get(duplicateSubmissionData.duplicateName);
+		Map<String /*校验id*/,Long> typeMap = duplicateRecord.get(duplicateSubmissionData.getDuplicateName());
 		//uplicateSubmissionHandlerInterceptor
 	}
 

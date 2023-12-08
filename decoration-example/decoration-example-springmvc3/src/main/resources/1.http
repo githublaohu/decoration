@@ -1,0 +1,13 @@
+GET http://127.0.0.1:8083/decoration/example/springmvc3/result/exceptionResult
+Accept: application/json
+
+###
+POST http://127.0.0.1:8083/decoration/example/springmvc3/result/validResult
+Content-Type: application/json
+
+{
+  "name": "111"
+
+}
+
+

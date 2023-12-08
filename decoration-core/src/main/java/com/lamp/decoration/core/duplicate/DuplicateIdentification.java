@@ -15,5 +15,6 @@ public enum DuplicateIdentification {
 
 	/*网络地址*/
 	NETWORK_ADDRESS,
-	USER_ID;
+	USER_ID,
+	BODY;
 }

@@ -11,6 +11,10 @@
  */
 package com.lamp.decoration.core.result;
 
+import com.lamp.decoration.core.exception.ExceptionResult;
+
+import java.util.List;
+
 public interface ResultAction<T> {
 
 	public Class<?> resultClass();
@@ -34,4 +38,8 @@ public interface ResultAction<T> {
 	}
 	
 	public T enumResult(Object data);
+
+	public void setDefaultExceptionResult(ExceptionResult exceptionResult);
+
+	public void setExceptionResultList(List<ExceptionResult> exceptionResultList);
 }

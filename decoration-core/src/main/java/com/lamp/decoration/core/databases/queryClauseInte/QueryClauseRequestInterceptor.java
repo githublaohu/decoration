@@ -11,25 +11,21 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-
-import com.lamp.decoration.core.databases.queryClauseInte.handler.DefaultQueryClauseHandler;
-
+import com.alibaba.fastjson.JSON;
+import com.lamp.decoration.core.DecorationContext;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+
+import java.util.Objects;
 
 
 public class QueryClauseRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate template) {
-		Map<String,Object> pageData = DefaultQueryClauseHandler.getPageData();
+		QueryClause pageData = DecorationContext.get().getQueryClause();
 		if(Objects.nonNull(pageData)) {
-			for(Entry<String, Object> e :  pageData.entrySet()) {
-				template.header(e.getKey(), e.getValue().toString());
-			}
+			template.header(DecorationContext.get().getQueryClauseKey(), JSON.toJSONString(pageData));
 		}
 	}
 

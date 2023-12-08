@@ -11,11 +11,12 @@
  */
 package com.lamp.decoration.core.spring;
 
+import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.spring.plugs.DecorationCorsConfiguration;
-import java.util.List;
-
 import com.lamp.decoration.core.spring.plugs.Swagger2Configuration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
 
 /**
  * 
@@ -37,10 +38,20 @@ public class DecorationProperties {
 
 	private boolean corsEnable = false;
 
+	private ConstantConfig constantConfig  = new ConstantConfig();
+
 	private List<DecorationCorsConfiguration> corsConfigurationList;
 
 	private Swagger2Configuration swagger2Config;
 
+
+	public ConstantConfig getConstantConfig() {
+		return constantConfig;
+	}
+
+	public void setConstantConfig(ConstantConfig constantConfig) {
+		this.constantConfig = constantConfig;
+	}
 
 	public List<DecorationCorsConfiguration> getCorsConfigurationList() {
 		return corsConfigurationList;

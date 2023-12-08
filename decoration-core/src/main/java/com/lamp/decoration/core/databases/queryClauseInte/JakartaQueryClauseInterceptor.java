@@ -14,19 +14,14 @@ package com.lamp.decoration.core.databases.queryClauseInte;
 import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.databases.Querylimit;
 import com.lamp.decoration.core.databases.QuerylimitData;
-import com.lamp.decoration.core.databases.queryClauseInte.QueryClauseCentre;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
-/**
- * @author laohu
- */
 public class JakartaQueryClauseInterceptor implements HandlerInterceptor {
 
     private ConcurrentHashMap<Object, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();

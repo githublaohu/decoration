@@ -1,9 +1,21 @@
+/*
+ *Copyright (c) [Year] [name of copyright holder]
+ *[Software Name] is licensed under Mulan PubL v2.
+ *You can use this software according to the terms and conditions of the Mulan PubL v2.
+ *You may obtain a copy of Mulan PubL v2 at:
+ *         http://license.coscl.org.cn/MulanPubL-2.0
+ *THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ *EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ *See the Mulan PubL v2 for more details.
+ */
 package com.lamp.decoration.core.spring.plugs;
 
 
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.Tag;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -12,6 +24,7 @@ import java.util.Set;
  */
 public class Swagger2Configuration {
 
+    private boolean swagger2Enable;
 
     private Set<String> protocols;
     private Set<String> produces;
@@ -25,6 +38,14 @@ public class Swagger2Configuration {
 
     private ApiSelector apiSelector;
 
+
+    public boolean isSwagger2Enable() {
+        return swagger2Enable;
+    }
+
+    public void setSwagger2Enable(boolean swagger2Enable) {
+        this.swagger2Enable = swagger2Enable;
+    }
 
     public ApiInfo getApiInfo() {
         return apiInfo;
@@ -93,9 +114,9 @@ public class Swagger2Configuration {
 
     public static class ApiSelector {
 
-        private List<String> paths;
+        private List<String> paths = new ArrayList<>();
 
-        private List<String> apis;
+        private List<String> apis = new ArrayList<>();
 
         public List<String> getPaths() {
             return paths;

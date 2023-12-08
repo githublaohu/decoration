@@ -12,26 +12,28 @@
 package com.lamp.decoration.core.exception;
 
 import com.lamp.decoration.core.result.ResultAction;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-@ControllerAdvice
-public class DecorationExceptionHandler {
+/**
+ * @author hahaha
+ */
+public class JakartaDecorationExceptionHandler implements CompatibleHandlerInterceptor {
 
     private static final Log logger = LogFactory.getLog("decoration exception");
 
     private final ResultAction resultAction;
 
-    public DecorationExceptionHandler(ResultAction resultAction) {
+    public JakartaDecorationExceptionHandler(ResultAction resultAction) {
         this.resultAction = resultAction;
     }
 
@@ -40,6 +42,12 @@ public class DecorationExceptionHandler {
                                                      HttpServletRequest httpServletRequest) {
         logger.error(e.getMessage(), e);
         return new ModelAndView(new DecorationMappingJackson2JsonView(resultAction.throwableResult(e)));
+    }
+
+
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        logger.error(ex.getMessage(), ex);
+        return new ModelAndView(new DecorationMappingJackson2JsonView(resultAction.throwableResult(ex)));
     }
 
     static class DecorationMappingJackson2JsonView extends MappingJackson2JsonView {
@@ -54,7 +62,12 @@ public class DecorationExceptionHandler {
                                                HttpServletResponse response) throws Exception {
             ByteArrayOutputStream stream = createTemporaryOutputStream();
             writeContent(stream, object);
-            writeToResponse(response, stream);
+
+            response.setContentType(getContentType());
+            response.setContentLength(stream.size());
+            ServletOutputStream out = response.getOutputStream();
+            stream.writeTo(out);
+            out.flush();
         }
     }
 

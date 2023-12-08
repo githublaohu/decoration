@@ -9,10 +9,14 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
-package com.lamp.decoration.core.spring.plugs;
+package com.lamp.decoration.core.utils;
 
-/**
- * @author laohu
- */
-public class Swagger3Plugs {
+import org.springframework.core.SpringVersion;
+
+public class SpringVersionRecognition {
+
+    public static boolean isJakarta() {
+        Integer version = Integer.valueOf(SpringVersion.getVersion().charAt(0));
+        return version > 5;
+    }
 }

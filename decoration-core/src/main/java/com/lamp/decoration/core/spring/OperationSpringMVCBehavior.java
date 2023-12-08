@@ -13,10 +13,6 @@ package com.lamp.decoration.core.spring;
 
 import com.lamp.decoration.core.result.ResultAction;
 import com.lamp.decoration.core.result.ResultHandlerMethodReturnValueHandler;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import javax.annotation.PostConstruct;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -26,6 +22,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor;
+
+import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class OperationSpringMVCBehavior implements ApplicationContextAware, ApplicationListener<ContextRefreshedEvent> {
 

@@ -11,9 +11,14 @@
  */
 package com.lamp.decoration.core.duplicate;
 
+import java.lang.annotation.*;
+
 /**
  * @author laohu
  */
+@Documented
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface DuplicateSubmission {
 
 	long intervalTime() default 3000;

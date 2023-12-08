@@ -3,10 +3,22 @@
 > decoration主要是解决一些重复性行为与开发过程需要的一些基础能力
 
 1. 统一 spring mvc result
+   1. 多返回类型，应该怎么处理 
 2. 统一 spring mvc 异常
+   1. 基本没有需求
 3. 隐式分页功能
+   1. 基本完成
 4. 防止重复提交
-5. 单元测试
+   1. 还差 redis
+5. 参数校验
+   1. 
+6. 单元测试
+   1. 还差 spring mvc
+7. 插件
+   1. swagger2 完成
+   2. swagger3 未完成
+   3. 跨域  完成
+   4. 
 
 ## 使用
 
@@ -206,6 +218,7 @@ public void overbooking(Map<String, String> parameter){
 
 1. LocalDuplicateCheck基于ConcurrentHashMap实现。已完成
 2. RedisDuplicateCheck基于redis实现。未完成
+3. 
 
 #### lock方式
 
@@ -236,8 +249,13 @@ public void overbooking(Map<String, String> parameter){
 * DecorationCorsConfiguration
 
 ## 参数校验
-
+-> 如果每个方法一个对象，那么复用性太低了。 如果公用一个对象，怎么保证简单。如何解耦
 1. spring mvc
 2. dubbo
+
+
+## 完成情况
+
+
 
 mvn clean deploy javadoc:javadoc -P release

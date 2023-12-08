@@ -9,10 +9,11 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
-package com.lamp.decoration.core.spring.plugs;
+package com.lamp.decoration.core.duplicate;
+
 
 /**
- * @author laohu
+ * @author hahaha
  */
-public class Swagger3Plugs {
+public class DuplicateConfig {
 }

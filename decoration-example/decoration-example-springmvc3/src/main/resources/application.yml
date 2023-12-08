@@ -1,0 +1,27 @@
+server:
+  port: 8083
+  servlet:
+    context-path: "/decoration/example/springmvc3/"
+
+
+
+dubbo:
+  enabled: false
+
+#decoration:
+#  enable: true
+#  corsEnable: true
+#  swagger2Config:
+#    swagger2Enable: false
+#    apiSelector:
+#      paths:
+#        - cn.lampup.decoration.example.springmvc
+#    apiInfo:
+#      title: 1111
+#      description: 2222
+#      termsOfServiceUrl: 3333
+#      contact:
+#        name: laohu
+#      license: aaaaaa
+#      version: 1.0.1
+

@@ -11,8 +11,17 @@
  */
 package com.lamp.decoration.core.spring.plugs;
 
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+
 /**
  * @author laohu
  */
-public class Swagger3Plugs {
+public class FastJsonMessageConverters implements WebMvcConfigurer {
+
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.size();
+    }
 }
