@@ -11,6 +11,10 @@
  */
 package com.lamp.decoration.core.duplicate;
 
+/**
+ * @author laohu
+ */
+
 public enum DuplicateIdentification {
 
 	/*网络地址*/

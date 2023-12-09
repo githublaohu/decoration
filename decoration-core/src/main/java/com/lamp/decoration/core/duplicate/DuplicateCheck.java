@@ -11,9 +11,23 @@
  */
 package com.lamp.decoration.core.duplicate;
 
+/**
+ *
+ * @author laohu
+ */
 public interface DuplicateCheck {
 
-	public boolean isDuplicateCheck(DuplicateSubmissionData duplicateSubmissionData);
-	
-	public void unlock(DuplicateSubmissionData duplicateSubmissionData);
+
+	/**
+	 *
+	 * @param duplicateSubmissionData
+	 * @return
+	 */
+	boolean isDuplicateCheck(DuplicateSubmissionData duplicateSubmissionData);
+
+	/**
+	 *
+	 * @param duplicateSubmissionData
+	 */
+	void unlock(DuplicateSubmissionData duplicateSubmissionData);
 }

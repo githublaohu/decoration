@@ -11,6 +11,9 @@
  */
 package com.lamp.decoration.core.duplicate;
 
+/**
+ * @author laohu
+ */
 public class DuplicateSubmissionData {
 
     private boolean isDuplicate = false;

@@ -13,6 +13,9 @@ package com.lamp.decoration.core.exception;
 
 import java.util.List;
 
+/**
+ * @author laohu
+ */
 public interface CustomExceptionResult {
 
 	/**

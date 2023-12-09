@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author hahaha
+ */
 public class OperationSpringMVCBehavior implements ApplicationContextAware, ApplicationListener<ContextRefreshedEvent> {
 
     private final String injection;

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author hahaha
+ * @author laohu
  */
 public class DuplicateSubmissionHandlerInterceptor implements HandlerInterceptor {
 

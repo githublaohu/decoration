@@ -14,15 +14,18 @@ package com.lamp.decoration.core.databases.queryClauseInte;
 import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.databases.Querylimit;
 import com.lamp.decoration.core.databases.QuerylimitData;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.dubbo.rpc.Invoker;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * @author laohu
+ */
 public class QueryClauseInterceptor implements HandlerInterceptor {
 
     private ConcurrentHashMap<Object, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();

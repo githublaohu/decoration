@@ -11,6 +11,9 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte.handler;
 
+/**
+ * @author laohu
+ */
 public interface QueryClauseHandler {
     
     public void handler(String queryClause);

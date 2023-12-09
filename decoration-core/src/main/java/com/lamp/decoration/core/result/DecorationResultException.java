@@ -12,7 +12,7 @@
 package com.lamp.decoration.core.result;
 
 /**
- * @author hahaha
+ * @author laohu
  */
 public class DecorationResultException extends RuntimeException {
 

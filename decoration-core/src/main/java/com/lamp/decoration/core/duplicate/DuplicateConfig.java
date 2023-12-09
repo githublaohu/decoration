@@ -13,7 +13,7 @@ package com.lamp.decoration.core.duplicate;
 
 
 /**
- * @author hahaha
+ * @author laohu
  */
 public class DuplicateConfig {
 }

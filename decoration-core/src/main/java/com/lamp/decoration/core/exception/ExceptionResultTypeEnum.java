@@ -11,10 +11,14 @@
  */
 package com.lamp.decoration.core.exception;
 
+/**
+ * @author laohu
+ */
+
 public enum ExceptionResultTypeEnum {
 	
 	JSON,
 	HTML,
-	REDIRCE;
+	REDIRECT;
 
 }

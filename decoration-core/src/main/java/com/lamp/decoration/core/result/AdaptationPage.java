@@ -11,6 +11,9 @@
  */
 package com.lamp.decoration.core.result;
 
+/**
+ * @author laohu
+ */
 public interface AdaptationPage {
 
 	

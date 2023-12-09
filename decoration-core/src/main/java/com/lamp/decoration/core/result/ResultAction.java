@@ -15,6 +15,9 @@ import com.lamp.decoration.core.exception.ExceptionResult;
 
 import java.util.List;
 
+/**
+ * @author laohu
+ */
 public interface ResultAction<T> {
 
 	public Class<?> resultClass();

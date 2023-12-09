@@ -22,6 +22,9 @@ import com.lamp.decoration.core.result.ResultObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * @author laohu
+ */
 public class QueryClauseCentre {
     public static final ArrayList<QueryClauseHandler> QUERY_CLAUSE_HANDLER_LIST = new ArrayList<>();
 

@@ -13,6 +13,9 @@ package com.lamp.decoration.core;
 
 import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
 
+/**
+ * @author laohu
+ */
 public class ConstantConfig {
 
     private String discern = QueryClause.QUERY_CLAUSE_KEY;

@@ -1,10 +1,16 @@
+/*
+ *Copyright (c) [Year] [name of copyright holder]
+ *[Software Name] is licensed under Mulan PubL v2.
+ *You can use this software according to the terms and conditions of the Mulan PubL v2.
+ *You may obtain a copy of Mulan PubL v2 at:
+ *         http://license.coscl.org.cn/MulanPubL-2.0
+ *THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND,
+ *EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT,
+ *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
+ *See the Mulan PubL v2 for more details.
+ */
 package com.lamp.decoration.core.databases.mybatis;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import javax.sql.DataSource;
 import org.apache.ibatis.datasource.unpooled.UnpooledDataSource;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.Configuration;
@@ -13,7 +19,16 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
+import javax.sql.DataSource;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 /**
+ * 1. 编写期间可以使用 spring配置的内容。开发期间，可以识别 target 目录，读取文件
+ * 2. 构建期间的 test，通过读取环境变量识别 构建期间
+ * 3.
  * @author laohu
  */
 public class TestMyBatis<T> {
@@ -27,6 +42,11 @@ public class TestMyBatis<T> {
         mapper = (T) sqlSessionFactory.openSession().getMapper(clazz);
     }
 
+    /**
+     * @param clazz
+     * @param sqlSessionFactory
+     * @throws ClassNotFoundException
+     */
     private void testMapper(Class<?> clazz, SqlSessionFactory sqlSessionFactory) throws ClassNotFoundException {
         TestMapper testMapper = clazz.getAnnotation(TestMapper.class);
         for (String dependent : testMapper.dependent()) {
@@ -52,8 +72,12 @@ public class TestMyBatis<T> {
         }
     }
 
+    /**
+     * @return
+     */
     private Configuration getConfiguration() {
         TransactionFactory transactionFactory = new JdbcTransactionFactory();
+
         Environment environment = new Environment("Production", transactionFactory, this.getDataSource());
         Configuration configuration = new Configuration(environment);
         configuration.setLazyLoadingEnabled(true);
@@ -63,6 +87,9 @@ public class TestMyBatis<T> {
         return configuration;
     }
 
+    /**
+     * @return
+     */
     private Class<?> getClazz() {
         Type superClass = this.getClass().getGenericSuperclass();
         ParameterizedType parameterizedType = (ParameterizedType) superClass;
@@ -70,6 +97,9 @@ public class TestMyBatis<T> {
         return (Class<?>) actualTypeArguments[0];
     }
 
+    /**
+     * @return
+     */
     private DataSource getDataSource() {
         UnpooledDataSource dataSource = new UnpooledDataSource();
         dataSource.setDriver("org.hsqldb.jdbcDriver");

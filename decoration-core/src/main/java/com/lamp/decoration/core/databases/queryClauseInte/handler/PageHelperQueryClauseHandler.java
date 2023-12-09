@@ -11,12 +11,15 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte.handler;
 
-import java.util.Objects;
-
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
 
+import java.util.Objects;
+
+/**
+ * @author laohu
+ */
 public class PageHelperQueryClauseHandler implements QueryClauseHandler {
 
 	public PageHelperQueryClauseHandler() {

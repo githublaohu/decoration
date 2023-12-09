@@ -24,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
+/**
+ *
+ * @author laohu
+ */
 @ControllerAdvice
 public class DecorationExceptionHandler {
 

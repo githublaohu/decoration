@@ -13,6 +13,9 @@ package com.lamp.decoration.core.exception;
 
 
 
+/**
+ * @author laohu
+ */
 public class ExceptionResult {
 
 	private String className;

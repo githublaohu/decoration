@@ -19,6 +19,9 @@ import feign.RequestTemplate;
 import java.util.Objects;
 
 
+/**
+ * @author laohu
+ */
 public class QueryClauseRequestInterceptor implements RequestInterceptor {
 
 	@Override

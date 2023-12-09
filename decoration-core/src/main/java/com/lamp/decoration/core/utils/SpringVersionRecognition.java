@@ -13,6 +13,9 @@ package com.lamp.decoration.core.utils;
 
 import org.springframework.core.SpringVersion;
 
+/**
+ * @author laohu
+ */
 public class SpringVersionRecognition {
 
     public static boolean isJakarta() {

@@ -11,6 +11,9 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte;
 
+/**
+ * @author laohu
+ */
 public class QueryClause {
 
     public final static String QUERY_CLAUSE_KEY = "queryClause";

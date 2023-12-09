@@ -16,6 +16,9 @@ import org.apache.dubbo.rpc.RpcContext;
 import com.github.pagehelper.Page;
 import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
 
+/**
+ * @author laohu
+ */
 public class DuddboQueryClauseHandler implements QueryClauseHandler {
 
     public void handler(String queryClause) {

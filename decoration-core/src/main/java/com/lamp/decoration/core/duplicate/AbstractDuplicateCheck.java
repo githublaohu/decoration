@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+/**
+ * @author laohu
+ */
 public abstract class AbstractDuplicateCheck implements DuplicateCheck {
 
     private static final Log logger = LogFactory.getLog(AbstractDuplicateCheck.class);

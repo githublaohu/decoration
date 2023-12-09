@@ -22,6 +22,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+/**
+ * @author laohu
+ */
 public class JakartaQueryClauseInterceptor implements HandlerInterceptor {
 
     private ConcurrentHashMap<Object, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();

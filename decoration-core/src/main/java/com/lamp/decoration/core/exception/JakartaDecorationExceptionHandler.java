@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 /**
- * @author hahaha
+ * @author laohu
  */
 public class JakartaDecorationExceptionHandler implements CompatibleHandlerInterceptor {
 

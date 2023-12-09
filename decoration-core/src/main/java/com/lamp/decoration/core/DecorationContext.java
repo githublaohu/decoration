@@ -15,7 +15,7 @@ import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
 import com.lamp.decoration.core.result.ResultObject;
 
 /**
- * @author hahaha
+ * @author laohu
  */
 public class DecorationContext {
 
