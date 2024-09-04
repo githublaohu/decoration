@@ -7,7 +7,7 @@
     <parent>
         <groupId>cn.lampup</groupId>
         <artifactId>decoration</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.9</version>
     </parent>
     <artifactId>decoration-core</artifactId>
     <name>decoration-core</name>
@@ -27,6 +27,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.0.4.RELEASE</version>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -53,19 +54,19 @@
                     <artifactId>jackson-datatype-jsr310</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>5.3.29</version>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-fileupload</groupId>
                     <artifactId>commons-fileupload</artifactId>
                 </exclusion>
             </exclusions>
-            <scope>provided</scope>
+
         </dependency>
 
         <dependency>
@@ -125,13 +126,28 @@
             <scope>provided</scope>
         </dependency>
 
-
+        <!-- Swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.9.2</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Swagger3 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-javadoc</artifactId>
+            <version>1.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -152,6 +168,12 @@
         </dependency>
 
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.11</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

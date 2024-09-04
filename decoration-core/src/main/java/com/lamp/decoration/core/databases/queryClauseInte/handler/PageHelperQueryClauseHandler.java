@@ -26,6 +26,7 @@ public class PageHelperQueryClauseHandler implements QueryClauseHandler {
 		PageHelper.clearPage();
 	}
 	
+    @Override
     public void handler(String queryClauseString) {
         QueryClause queryClause = JSON.parseObject(queryClauseString, QueryClause.class);
         if (Objects.nonNull(queryClause.getLimitStart()) && Objects.nonNull(queryClause.getLimitSize())) {

@@ -39,7 +39,6 @@ public class DecorationCorsRegistry implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
-
         if (this.corsEnable && (Objects.isNull(this.corsConfigurationList) || corsConfigurationList.isEmpty())) {
             registry.addMapping("/**").allowedOrigins("*");
             return;
@@ -56,14 +55,9 @@ public class DecorationCorsRegistry implements WebMvcConfigurer {
 
             CorsRegistration corsRegistration =
                     registry.addMapping(corsConfiguration.getPathPattern());
-            CorsConfiguration configuration = null;
-            try {
-                Field configField = CorsRegistration.class.getDeclaredField("config");
-                configField.setAccessible(true);
-                configuration = (CorsConfiguration) configField.get(corsRegistration);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+
+            CorsConfiguration configuration = getCorsConfiguration(corsRegistration);
+
             if (Objects.nonNull(corsConfiguration.getMaxAge())) {
                 configuration.setMaxAge(corsConfiguration.getMaxAge());
             }
@@ -81,6 +75,31 @@ public class DecorationCorsRegistry implements WebMvcConfigurer {
             }
             configuration.setAllowCredentials(corsConfiguration.getAllowCredentials());
 
+        }
+    }
+
+    private static CorsConfiguration getCorsConfiguration(CorsRegistration corsRegistration) {
+        Field configField = null;
+        try {
+            configField = CorsRegistration.class.getDeclaredField("config");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if(Objects.isNull(configField)) {
+            try {
+                configField = CorsRegistration.class.getDeclaredField("getCorsConfiguration");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if(Objects.isNull(corsRegistration)){
+            throw new RuntimeException(" configField is not");
+        }
+        try{
+            configField.setAccessible(true);
+            return (CorsConfiguration) configField.get(corsRegistration);
+        }catch (Exception e){
+            throw new RuntimeException(e);
         }
     }
 }

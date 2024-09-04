@@ -1,0 +1,22 @@
+# 看 io.swagger.v3.oas.models.OpenAPI
+# 默认 3.0.1
+openapi: 3.0.1
+# api 基本信息
+info:
+  title: decoration
+  description: 说明
+  termsOfService:  服务条款
+  contact: # 联络人
+    name: 联络人名
+    url: 网络地址
+    email: 邮箱
+    extensions: # 扩展信息
+      why: who
+  license: #协议内容
+    name: $协议内容
+    url: faskfj;a
+    identifier: dfasdf
+  version: 版本
+  summary: 摘要
+
+

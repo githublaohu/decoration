@@ -9,9 +9,14 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
+
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import com.lamp.decoration.core.databases.QuerylimitData;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import com.alibaba.fastjson.JSON;
+import com.lamp.decoration.core.databases.QueryLimitData;
 import com.lamp.decoration.core.databases.queryClauseInte.handler.DuddboQueryClauseHandler;
 import com.lamp.decoration.core.databases.queryClauseInte.handler.PageHelperQueryClauseHandler;
 import com.lamp.decoration.core.databases.queryClauseInte.handler.QueryClauseHandler;
@@ -19,13 +24,11 @@ import com.lamp.decoration.core.databases.queryClauseInte.returndata.DubboRpcRet
 import com.lamp.decoration.core.databases.queryClauseInte.returndata.RpcReturnData;
 import com.lamp.decoration.core.result.ResultObject;
 
-import java.util.ArrayList;
-import java.util.Objects;
-
 /**
  * @author laohu
  */
 public class QueryClauseCentre {
+
     public static final ArrayList<QueryClauseHandler> QUERY_CLAUSE_HANDLER_LIST = new ArrayList<>();
 
     public static final ArrayList<RpcReturnData> RPC_RETURN_DATA_LIST = new ArrayList<>();
@@ -40,23 +43,32 @@ public class QueryClauseCentre {
         }
         try {
             DuddboQueryClauseHandler helperQueryClauseHandler = new DuddboQueryClauseHandler();
+            com.github.pagehelper.Page<Object> page = new com.github.pagehelper.Page<Object>();
+            helperQueryClauseHandler.pageHandler(page);
             QUERY_CLAUSE_HANDLER_LIST.add(helperQueryClauseHandler);
         } catch (Throwable e) {
 
         }
         try {
             RpcReturnData rpcReturnData = new DubboRpcReturnData();
+            rpcReturnData.pageData(null);
             RPC_RETURN_DATA_LIST.add(rpcReturnData);
-            rpcReturnData.toString();
+
         } catch (Throwable E) {
 
         }
     }
 
-    public static void queryClauseHandler(String queryClause, QuerylimitData querylimit) {
+    public static void queryClauseHandler(String queryClause, QueryLimitData queryLimit) {
 
         if (Objects.isNull(queryClause)) {
             throw new RuntimeException(" must queryClause");
+        }
+        QueryClause queryClauseObject = JSON.parseObject(queryClause, QueryClause.class);
+        if (queryClauseObject.getLimitSize() > queryLimit.getDefaultLimit()) {
+            String message =
+                String.format("limitSize（%d） must less than defaultLimit（%d）", queryClauseObject.getLimitSize(), queryLimit.getDefaultLimit());
+            throw new RuntimeException(message);
         }
 
         if (QUERY_CLAUSE_HANDLER_LIST.isEmpty()) {

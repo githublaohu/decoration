@@ -54,6 +54,7 @@ public class DecorationExceptionHandler {
             this.object = object;
         }
 
+        @Override
         protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
                                                HttpServletResponse response) throws Exception {
             ByteArrayOutputStream stream = createTemporaryOutputStream();

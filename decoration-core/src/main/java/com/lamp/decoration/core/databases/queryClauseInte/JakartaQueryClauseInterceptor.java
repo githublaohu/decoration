@@ -13,7 +13,7 @@ package com.lamp.decoration.core.databases.queryClauseInte;
 
 import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.databases.Querylimit;
-import com.lamp.decoration.core.databases.QuerylimitData;
+import com.lamp.decoration.core.databases.QueryLimitData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.method.HandlerMethod;
@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class JakartaQueryClauseInterceptor implements HandlerInterceptor {
 
-    private ConcurrentHashMap<Object, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Object, QueryLimitData> querylimitMap = new ConcurrentHashMap<>();
 
     private ConstantConfig constantConfig;
 
@@ -42,9 +42,9 @@ public class JakartaQueryClauseInterceptor implements HandlerInterceptor {
         if(constantConfig.isAll()){
             QueryClauseCentre.queryClauseHandler(getQueryClause(request),null);
         }
-        QuerylimitData querylimitData = querylimitMap.get(handler);
+        QueryLimitData querylimitData = querylimitMap.get(handler);
         if(Objects.isNull(querylimitData)) {
-            querylimitData = new QuerylimitData();
+            querylimitData = new QueryLimitData();
             querylimitMap.put(handler,querylimitData);
             if (handler instanceof HandlerExecutionChain) {
                 HandlerExecutionChain handlerExecutionChain = (HandlerExecutionChain) handler;

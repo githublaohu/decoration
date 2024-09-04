@@ -41,7 +41,7 @@ public class AdaptationPageService {
 	
 	public void register(AdaptationPage adaptationPage) {
 		try {
-			adaptationPageCache.put(adaptationPage.getClass(), adaptationPage);
+			adaptationPageCache.put(adaptationPage.getPageObject(), adaptationPage);
 			logger.info(" page adaptation register success " + adaptationPage.getClass());
 		}catch(Exception e) {
 			logger.info(" page adaptation register fail " + adaptationPage.getClass());

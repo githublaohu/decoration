@@ -6,6 +6,8 @@
    1. 多返回类型，应该怎么处理 
 2. 统一 spring mvc 异常
    1. 基本没有需求
+   2. 异常结果二次处理。发送异常到其他组件（99%）
+   3. 出书返回结果
 3. 隐式分页功能
    1. 基本完成
 4. 防止重复提交
@@ -19,6 +21,15 @@
    2. swagger3 未完成
    3. 跨域  完成
    4. 
+
+## 功能开启状态
+> 配置参数请看：com.lamp.decoration.core.spring.DecorationProperties
+
+| 功能     |  配置名 | 默认开启 | 是否可以关闭 |
+|--------| -- | -- |  -- |
+| 整体     |   |  是 | 是 |
+| 结果处理模块 |   |  是 | 是 |
+ 
 
 ## 使用
 
@@ -213,6 +224,8 @@ public void overbooking(Map<String, String> parameter){
 
 1. 基于请求端的网络地址
 2. 基于传递参数
+3. 基于user_id + 接口名字
+4. token
 
 #### lock支持方法
 
@@ -257,5 +270,6 @@ public void overbooking(Map<String, String> parameter){
 ## 完成情况
 
 
-
+## 内部文档
+### 发布
 mvn clean deploy javadoc:javadoc -P release

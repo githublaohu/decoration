@@ -40,7 +40,7 @@ public class DuplicateSubmissionHandler {
 
         DuplicateSubmissionData duplicateSubmissionData = duplicateSubmission.get(method);
         if (Objects.isNull(duplicateSubmissionData)) {
-            duplicateSubmission.computeIfAbsent(method, k -> {
+            duplicateSubmissionData = duplicateSubmission.computeIfAbsent(method, k -> {
                 DuplicateSubmission duplicateSubmission = method.getAnnotation(DuplicateSubmission.class);
                 DuplicateSubmissionData newDuplicateSubmissionData = new DuplicateSubmissionData();
                 if (Objects.nonNull(duplicateSubmission)) {
@@ -70,6 +70,10 @@ public class DuplicateSubmissionHandler {
         if (Objects.isNull(duplicateSubmissionLocalData)) {
             return;
         }
+        if(Objects.isNull(duplicateSubmissionLocalData.duplicateSubmissionData)){
+            return;
+        }
+
         DuplicateSubmissionData duplicateSubmissionData = duplicateSubmissionLocalData.duplicateSubmissionData;
         duplicateSubmissionLocalData.key = null;
         duplicateSubmissionLocalData.duplicateSubmissionData = null;

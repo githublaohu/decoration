@@ -22,6 +22,8 @@ public class ConstantConfig {
 
     private boolean all = false;
 
+    private int defaultLimit = 200;
+
     private String spot = "header";
     
     private String pageSize = "pageSize";
@@ -87,5 +89,13 @@ public class ConstantConfig {
 
     public void setAll(boolean all) {
         this.all = all;
+    }
+
+    public int getDefaultLimit() {
+        return defaultLimit;
+    }
+
+    public void setDefaultLimit(int defaultLimit) {
+        this.defaultLimit = defaultLimit;
     }
 }

@@ -11,12 +11,15 @@
  */
 package com.lamp.decoration.core.spring;
 
-import com.lamp.decoration.core.ConstantConfig;
-import com.lamp.decoration.core.spring.plugs.DecorationCorsConfiguration;
-import com.lamp.decoration.core.spring.plugs.Swagger2Configuration;
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.List;
+import com.lamp.decoration.core.ConstantConfig;
+import com.lamp.decoration.core.result.ResultConfig;
+import com.lamp.decoration.core.spring.plugs.DecorationCorsConfiguration;
+import com.lamp.decoration.core.spring.plugs.Swagger2Configuration;
+import com.lamp.decoration.core.spring.plugs.Swagger3Configuration;
 
 /**
  * 
@@ -29,12 +32,10 @@ public class DecorationProperties {
 	public static final String  DECORATION_PREFIX = "decoration";
 
 	private String defaultExceptionResult;
-	
+
 	private List<String> exceptionResult;
 	
-	private String resultObject;
-	
-	private boolean enable;
+	private boolean enabled;
 
 	private boolean corsEnable = false;
 
@@ -42,8 +43,11 @@ public class DecorationProperties {
 
 	private List<DecorationCorsConfiguration> corsConfigurationList;
 
-	private Swagger2Configuration swagger2Config;
+	private Swagger2Configuration swagger2;
 
+	private Swagger3Configuration swagger3;
+
+	private ResultConfig resultConfig = new ResultConfig();
 
 	public ConstantConfig getConstantConfig() {
 		return constantConfig;
@@ -80,28 +84,28 @@ public class DecorationProperties {
 		this.exceptionResult = exceptionResult;
 	}
 
-	public String getResultObject() {
-		return resultObject;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setResultObject(String resultObject) {
-		this.resultObject = resultObject;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
-	public boolean isEnable() {
-		return enable;
+	public Swagger2Configuration getSwagger2() {
+		return swagger2;
 	}
 
-	public void setEnable(boolean enable) {
-		this.enable = enable;
+	public void setSwagger2(Swagger2Configuration swagger2) {
+		this.swagger2 = swagger2;
 	}
 
-	public Swagger2Configuration getSwagger2Config() {
-		return swagger2Config;
+	public Swagger3Configuration getSwagger3() {
+		return swagger3;
 	}
 
-	public void setSwagger2Config(Swagger2Configuration swagger2Config) {
-		this.swagger2Config = swagger2Config;
+	public void setSwagger3(Swagger3Configuration swagger3) {
+		this.swagger3 = swagger3;
 	}
 
 	public boolean isCorsEnable() {
@@ -110,5 +114,13 @@ public class DecorationProperties {
 
 	public void setCorsEnable(boolean corsEnable) {
 		this.corsEnable = corsEnable;
+	}
+
+	public ResultConfig getResultConfig() {
+		return resultConfig;
+	}
+
+	public void setResultConfig(ResultConfig resultConfig) {
+		this.resultConfig = resultConfig;
 	}
 }

@@ -16,11 +16,6 @@ package com.lamp.decoration.core.result;
  */
 public class DecorationResultException extends RuntimeException {
 
-    private ResultObject<String> resultObject;
-
-    public DecorationResultException(ResultObject<String> resultObject) {
-        this.resultObject = resultObject;
-    }
 
     public static final void throwDecorationResultException(Integer code) {
         throwDecorationResultException(code, null, null, null);
@@ -46,6 +41,11 @@ public class DecorationResultException extends RuntimeException {
         throw new DecorationResultException(resultObject);
     }
 
+    private ResultObject<String> resultObject;
+
+    public DecorationResultException(ResultObject<String> resultObject) {
+        this.resultObject = resultObject;
+    }
 
     public static Build build() {
         return new Build();

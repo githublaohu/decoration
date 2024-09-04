@@ -9,26 +9,29 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
+
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import com.lamp.decoration.core.ConstantConfig;
-import com.lamp.decoration.core.databases.Querylimit;
-import com.lamp.decoration.core.databases.QuerylimitData;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerExecutionChain;
-import org.springframework.web.servlet.HandlerInterceptor;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import com.lamp.decoration.core.ConstantConfig;
+import com.lamp.decoration.core.databases.QueryLimitData;
+import com.lamp.decoration.core.databases.Querylimit;
+import com.lamp.decoration.core.utils.UtilsTool;
 
 /**
  * @author laohu
  */
 public class QueryClauseInterceptor implements HandlerInterceptor {
 
-    private ConcurrentHashMap<Object, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Object, QueryLimitData> querylimitMap = new ConcurrentHashMap<>();
 
     private ConstantConfig constantConfig;
 
@@ -37,31 +40,33 @@ public class QueryClauseInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
-
-        if(constantConfig.isAll()){
-            QueryClauseCentre.queryClauseHandler(getQueryClause(request),null);
-        }
-        QuerylimitData querylimitData = querylimitMap.get(handler);
-        if(Objects.isNull(querylimitData)) {
-            querylimitData = new QuerylimitData();
-            querylimitMap.put(handler,querylimitData);
-            if (handler instanceof HandlerExecutionChain) {
-                HandlerExecutionChain handlerExecutionChain = (HandlerExecutionChain) handler;
-                Object handler1 = handlerExecutionChain.getHandler();
-                Querylimit querylimit = null;
-                if (handler1 instanceof HandlerMethod) {
-                    HandlerMethod handlerMethod = (HandlerMethod) handler1;
-                    querylimit = handlerMethod.getMethodAnnotation(Querylimit.class);
-                }
-                if(Objects.nonNull(querylimit)){
-                    querylimitData.setQueryLimit(true);
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        QueryLimitData querylimitData = querylimitMap.get(handler);
+        if (Objects.isNull(querylimitData)) {
+            querylimitData = new QueryLimitData();
+            querylimitMap.put(handler, querylimitData);
+            if (handler instanceof HandlerMethod) {
+                HandlerMethod handlerMethod = (HandlerMethod) handler;
+                if (constantConfig.isAll()) {
+                    Class<?> clazz = UtilsTool.getaClass(handlerMethod.getMethod());
+                    if (UtilsTool.isCollection(clazz)) {
+                        querylimitData.setQueryLimit(true);
+                        querylimitData.setPageQuery(true);
+                        querylimitData.setDefaultLimit(constantConfig.getDefaultLimit());
+                    }
+                } else {
+                    Querylimit querylimit = handlerMethod.getMethodAnnotation(Querylimit.class);
+                    if (Objects.nonNull(querylimit)) {
+                        querylimitData.setDefaultLimit(querylimit.defaultLimit());
+                        querylimitData.setQueryLimit(true);
+                        querylimitData.setPageQuery(true);
+                    }
                 }
             }
         }
-        if(querylimitData.isQueryLimit()){
-            QueryClauseCentre.queryClauseHandler(getQueryClause(request),querylimitData);
+
+        if (querylimitData.isPageQuery()) {
+            QueryClauseCentre.queryClauseHandler(getQueryClause(request), querylimitData);
         }
         return true;
     }
@@ -69,11 +74,13 @@ public class QueryClauseInterceptor implements HandlerInterceptor {
     public String getQueryClause(HttpServletRequest request) {
         String queryClause = request.getHeader(constantConfig.getDiscern());
         if (Objects.isNull(queryClause)) {
-            String key = "&" + constantConfig.getDiscern() + "=";
             String query = request.getQueryString();
-            int index = query.indexOf(key);
-            if (index > -1) {
-               queryClause = query.substring(index+key.length() ,query.indexOf('&',index+key.length()));
+            if (Objects.nonNull(query)) {
+                String key = "&" + constantConfig.getDiscern() + "=";
+                int index = query.indexOf(key);
+                if (index > -1) {
+                    queryClause = query.substring(index + key.length(), query.indexOf('&', index + key.length()));
+                }
             }
         }
         return queryClause;

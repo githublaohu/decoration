@@ -95,6 +95,7 @@ public class ResultObject<T> {
         }
         this.message = message;
         this.data = data;
+        AdaptationPageService.getInstance().adaptation((ResultObject<Object>) this, data);
     }
 
     @SuppressWarnings("unchecked")
@@ -111,7 +112,6 @@ public class ResultObject<T> {
         this.currentPage = currentPage;
         this.pageSize = pageSize;
         this.total = total;
-        AdaptationPageService.getInstance().adaptation((ResultObject<Object>) this, data);
     }
 
     public void setErrorCode(String errorCode){

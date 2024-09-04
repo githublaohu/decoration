@@ -9,21 +9,11 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
-package com.lamp.decoration.core.databases;
+package com.lamp.decoration.core.spring.run;
 
-/**
- * @author laohu
- */
-public class QuerylimitData {
-
-    private boolean queryLimit = false;
+public class ServiceLifeCycleManager {
 
 
-    public boolean isQueryLimit() {
-        return queryLimit;
-    }
 
-    public void setQueryLimit(boolean queryLimit) {
-        this.queryLimit = queryLimit;
-    }
+
 }

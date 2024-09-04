@@ -12,14 +12,23 @@
 package com.lamp.decoration.core.utils;
 
 import org.springframework.core.SpringVersion;
+import org.springframework.util.StringUtils;
 
 /**
  * @author laohu
  */
 public class SpringVersionRecognition {
 
-    public static boolean isJakarta() {
-        Integer version = Integer.valueOf(SpringVersion.getVersion().charAt(0));
+    private static final boolean isJakarta = getJakarta();
+
+    private static boolean getJakarta(){
+        String springVersion = SpringVersion.getVersion();
+        String[] value = StringUtils.split(springVersion, ".");
+        Integer version = Integer.valueOf(value[0]);
         return version > 5;
+    }
+
+    public static boolean isJakarta() {
+        return isJakarta;
     }
 }

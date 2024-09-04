@@ -14,7 +14,7 @@ package com.lamp.decoration.core.databases.queryClauseInte;
 import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.DecorationContext;
 import com.lamp.decoration.core.databases.Querylimit;
-import com.lamp.decoration.core.databases.QuerylimitData;
+import com.lamp.decoration.core.databases.QueryLimitData;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.config.invoker.DelegateProviderMetaDataInvoker;
 import org.apache.dubbo.rpc.*;
@@ -31,7 +31,7 @@ import static org.apache.dubbo.common.constants.CommonConstants.PROVIDER;
 @Activate(group = PROVIDER, order = 0)
 public class QueryClauseProviderFilter extends ListenableFilter {
 
-    private ConcurrentHashMap<Invoker<?>, QuerylimitData> querylimitMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Invoker<?>, QueryLimitData> querylimitMap = new ConcurrentHashMap<>();
 
     private ConstantConfig constantConfig;
 
@@ -42,9 +42,9 @@ public class QueryClauseProviderFilter extends ListenableFilter {
     @Override
     public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
         RpcContext context = RpcContext.getContext();
-        QuerylimitData querylimitData = querylimitMap.get(invoker);
+        QueryLimitData querylimitData = querylimitMap.get(invoker);
         if (Objects.isNull(querylimitData)) {
-            querylimitData = new QuerylimitData();
+            querylimitData = new QueryLimitData();
             querylimitMap.put(invoker,querylimitData);
             if (invoker instanceof DelegateProviderMetaDataInvoker) {
                 DelegateProviderMetaDataInvoker<?> delegateProviderMetaDataInvoker =

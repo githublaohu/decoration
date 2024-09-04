@@ -1,0 +1,32 @@
+GET http://127.0.0.1:8083/decoration/example/springmvc/result/exceptionResult
+Accept: application/json
+
+###
+POST http://127.0.0.1:8083/decoration/example/springmvc/result/validResult
+Content-Type: application/json
+
+{
+  "name": "111"
+
+}
+
+###
+POST http://127.0.0.1:8083/decoration/example/springmvc/result/resultList
+Content-Type: application/json
+
+###
+POST http://127.0.0.1:8083/decoration/example/springmvc/result/resultArrayList
+Content-Type: application/json
+queryClause: {"limitSize":300}
+
+###
+POST http://127.0.0.1:8083/decoration/example/springmvc/result/resultResultObjectList
+Content-Type: application/json
+queryClause: {"limitSize":100}
+
+###
+POST http://127.0.0.1:8083/decoration/example/springmvc/result/resultExclude
+Content-Type: application/json
+queryClause: {"limitSize":300}
+
+

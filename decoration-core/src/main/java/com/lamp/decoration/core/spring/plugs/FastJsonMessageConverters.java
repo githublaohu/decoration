@@ -11,6 +11,8 @@
  */
 package com.lamp.decoration.core.spring.plugs;
 
+import com.alibaba.fastjson.support.config.FastJsonConfig;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -21,7 +23,10 @@ import java.util.List;
  */
 public class FastJsonMessageConverters implements WebMvcConfigurer {
 
+    @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.size();
+        FastJsonHttpMessageConverter fastJsonMessageConverter = new FastJsonHttpMessageConverter();
+        fastJsonMessageConverter.setFastJsonConfig(new FastJsonConfig());
+        converters.add(fastJsonMessageConverter);
     }
 }

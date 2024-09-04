@@ -21,10 +21,12 @@ import com.lamp.decoration.core.databases.queryClauseInte.QueryClause;
  */
 public class DuddboQueryClauseHandler implements QueryClauseHandler {
 
+    @Override
     public void handler(String queryClause) {
         RpcContext.getContext().setAttachment(QueryClause.QUERY_CLAUSE_KEY, queryClause);
     }
 
+    @Override
     public void pageHandler(Object object) {
         if(object instanceof Page) {
             @SuppressWarnings("unchecked")

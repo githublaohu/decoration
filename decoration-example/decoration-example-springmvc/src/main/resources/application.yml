@@ -1,19 +1,21 @@
 server:
   port: 8083
   servlet:
-    context-path: "/decoration/example/springmvc3/"
+    context-path: "/decoration/example/springmvc/"
 
 
+dubbo:
+  application:
+    name: aaaa
 
 decoration:
   enabled: true
-  swagger3:
-    enabled: true
-  corsEnable: true
+  constantConfig:
+    all: true
 
 #decoration:
 #  enable: true
-#  corsEnable: true
+#  corsEnable: trueApplicationConfig
 #  swagger2Config:
 #    swagger2Enable: false
 #    apiSelector:

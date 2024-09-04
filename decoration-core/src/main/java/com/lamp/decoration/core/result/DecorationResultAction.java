@@ -128,10 +128,12 @@ public class DecorationResultAction implements ResultAction<ResultObject<Object>
         }
     }
 
+    @Override
     public void setDefaultExceptionResult(ExceptionResult exceptionResult) {
         this.defaultExceptionResult = exceptionResult;
     }
 
+    @Override
     public void setExceptionResultList(List<ExceptionResult> exceptionResultList) {
         for (ExceptionResult exceptionResult : exceptionResultList) {
             exceptionResultMap.put(exceptionResult.getClazz(), exceptionResult);

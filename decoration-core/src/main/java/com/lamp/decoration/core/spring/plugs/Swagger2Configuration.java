@@ -24,7 +24,6 @@ import java.util.Set;
  */
 public class Swagger2Configuration {
 
-    private boolean swagger2Enable;
 
     private Set<String> protocols;
     private Set<String> produces;
@@ -37,15 +36,6 @@ public class Swagger2Configuration {
     private ApiInfo apiInfo;
 
     private ApiSelector apiSelector;
-
-
-    public boolean isSwagger2Enable() {
-        return swagger2Enable;
-    }
-
-    public void setSwagger2Enable(boolean swagger2Enable) {
-        this.swagger2Enable = swagger2Enable;
-    }
 
     public ApiInfo getApiInfo() {
         return apiInfo;

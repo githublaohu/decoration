@@ -31,6 +31,7 @@ public class PagehelperAdaptationPage implements AdaptationPage {
         resultObject.setPageSize(page.getPageSize());
         resultObject.setData(page.getResult());
         resultObject.setCurrentPage(page.getPageNum());
+		resultObject.setData(page.getResult());
 	}
 
 }
