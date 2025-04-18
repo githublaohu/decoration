@@ -12,77 +12,26 @@
 
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.lamp.decoration.core.ConstantConfig;
 import com.lamp.decoration.core.databases.QueryLimitData;
-import com.lamp.decoration.core.databases.Querylimit;
-import com.lamp.decoration.core.utils.UtilsTool;
 
 /**
  * @author laohu
  */
-public class QueryClauseInterceptor implements HandlerInterceptor {
+public class QueryClauseInterceptor extends AbstractQueryClauseInterceptor implements HandlerInterceptor {
 
-    private ConcurrentHashMap<Object, QueryLimitData> querylimitMap = new ConcurrentHashMap<>();
-
-    private ConstantConfig constantConfig;
-
-    public QueryClauseInterceptor(ConstantConfig constantConfig) {
-        this.constantConfig = constantConfig;
-    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        QueryLimitData querylimitData = querylimitMap.get(handler);
-        if (Objects.isNull(querylimitData)) {
-            querylimitData = new QueryLimitData();
-            querylimitMap.put(handler, querylimitData);
-            if (handler instanceof HandlerMethod) {
-                HandlerMethod handlerMethod = (HandlerMethod) handler;
-                if (constantConfig.isAll()) {
-                    Class<?> clazz = UtilsTool.getaClass(handlerMethod.getMethod());
-                    if (UtilsTool.isCollection(clazz)) {
-                        querylimitData.setQueryLimit(true);
-                        querylimitData.setPageQuery(true);
-                        querylimitData.setDefaultLimit(constantConfig.getDefaultLimit());
-                    }
-                } else {
-                    Querylimit querylimit = handlerMethod.getMethodAnnotation(Querylimit.class);
-                    if (Objects.nonNull(querylimit)) {
-                        querylimitData.setDefaultLimit(querylimit.defaultLimit());
-                        querylimitData.setQueryLimit(true);
-                        querylimitData.setPageQuery(true);
-                    }
-                }
-            }
-        }
-
-        if (querylimitData.isPageQuery()) {
-            QueryClauseCentre.queryClauseHandler(getQueryClause(request), querylimitData);
+        QueryLimitData queryLimitData = this.getQueryLimitData(handler);
+        if (queryLimitData.isPageQuery()) {
+            return this.handler(queryLimitData, request.getHeader(constantConfig.getDiscern()), request.getQueryString());
         }
         return true;
     }
 
-    public String getQueryClause(HttpServletRequest request) {
-        String queryClause = request.getHeader(constantConfig.getDiscern());
-        if (Objects.isNull(queryClause)) {
-            String query = request.getQueryString();
-            if (Objects.nonNull(query)) {
-                String key = "&" + constantConfig.getDiscern() + "=";
-                int index = query.indexOf(key);
-                if (index > -1) {
-                    queryClause = query.substring(index + key.length(), query.indexOf('&', index + key.length()));
-                }
-            }
-        }
-        return queryClause;
-    }
 }

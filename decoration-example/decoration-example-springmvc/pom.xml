@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.lampup</groupId>
         <artifactId>decoration-example</artifactId>
-        <version>0.1.9</version>
+        <version>0.1.20</version>
     </parent>
 
     <groupId>cn.lampup.decoration.example-springmvc</groupId>
@@ -16,6 +16,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
     <dependencies>
         <dependency>
@@ -58,50 +59,8 @@
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>decoration-core</artifactId>
-            <version>0.1.9</version>
+            <version>${project.parent.version}</version>
         </dependency>
-        <!-- 2.9.2 不支持 spring6.0。 需要升级到 3.0以上 -->
-        <!-- <dependency>
-             <groupId>io.springfox</groupId>
-             <artifactId>springfox-swagger2</artifactId>
-             <version>2.9.2</version>
-             <exclusions>
-                 <exclusion>
-                     <groupId>org.springframework</groupId>
-                     <artifactId>spring-context</artifactId>
-                 </exclusion>
-                 <exclusion>
-                     <groupId>org.springframework</groupId>
-                     <artifactId>spring-beans</artifactId>
-                 </exclusion>
-                 <exclusion>
-                     <groupId>org.springframework</groupId>
-                     <artifactId>spring-aop</artifactId>
-                 </exclusion>
-                 <exclusion>
-                     <groupId>io.swagger</groupId>
-                     <artifactId>swagger-annotations</artifactId>
-                 </exclusion>
-             </exclusions>
-         </dependency>
-
-         <dependency>
-             <groupId>io.springfox</groupId>
-             <artifactId>springfox-swagger-ui</artifactId>
-             <version>2.9.2</version>
-         </dependency>
-
-         <dependency>
-             <groupId>io.swagger</groupId>
-             <artifactId>swagger-models</artifactId>
-             <version>1.5.22</version>
-             <exclusions>
-                 <exclusion>
-                     <groupId>com.fasterxml.jackson.core</groupId>
-                     <artifactId>jackson-annotations</artifactId>
-                 </exclusion>
-             </exclusions>
-         </dependency>-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

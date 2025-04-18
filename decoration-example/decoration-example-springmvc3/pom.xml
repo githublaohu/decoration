@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.lampup</groupId>
         <artifactId>decoration-example</artifactId>
-        <version>0.1.9</version>
+        <version>0.1.20</version>
     </parent>
 
     <groupId>cn.lampup.decoration.example-springmvc</groupId>
@@ -16,6 +16,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.deploy.skip>true</maven.deploy.skip>
     </properties>
     <dependencies>
         <dependency>

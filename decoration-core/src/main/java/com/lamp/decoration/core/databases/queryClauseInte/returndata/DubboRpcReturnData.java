@@ -11,9 +11,9 @@
  */
 package com.lamp.decoration.core.databases.queryClauseInte.returndata;
 
-import java.util.Map;
-
 import org.apache.dubbo.rpc.RpcContext;
+
+import java.util.Map;
 
 import com.lamp.decoration.core.result.ResultObject;
 
@@ -26,7 +26,10 @@ public class DubboRpcReturnData implements RpcReturnData {
             resultObject.setTotal(Long.valueOf(attachments.get("total")));
             resultObject.setCurrentPage(Integer.valueOf(attachments.get("currentPage")));
             resultObject.setPageSize(Integer.valueOf(attachments.get("pageSize")));
+
         }
     }
+
+
 
 }

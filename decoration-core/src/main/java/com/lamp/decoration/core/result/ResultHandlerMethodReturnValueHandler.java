@@ -22,12 +22,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.DispatcherServletWebRequest;
 
 import com.lamp.decoration.core.DecorationContext;
 import com.lamp.decoration.core.result.third.WangeditorResultObject;
@@ -37,6 +40,8 @@ import com.lamp.decoration.core.result.third.WangeditorResultObject;
  */
 public class ResultHandlerMethodReturnValueHandler
     implements HandlerMethodReturnValueHandler, HandlerExceptionResolver {
+
+    private final static Logger log = LoggerFactory.getLogger(ResultHandlerMethodReturnValueHandler.class);
 
     private final Map<Class<?>, Method> enumInMethodMap = new ConcurrentHashMap<>();
 
@@ -64,7 +69,7 @@ public class ResultHandlerMethodReturnValueHandler
     }
 
 
-    private void init(){
+    private void init() {
         this.clazzSet.add(WangeditorResultObject.class);
     }
 
@@ -72,7 +77,9 @@ public class ResultHandlerMethodReturnValueHandler
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest) throws Exception {
         // 从returnType ，获得类型返类型
-        Object object = this.clazzSet.contains(returnType.getClass())? returnValue.getClass() :this.actionResult(returnValue, returnType, mavContainer, webRequest);
+        Object object = this.clazzSet.contains(returnType.getParameterType()) ? returnValue
+            : this.actionResult(returnValue, returnType, mavContainer, webRequest);
+        this.printReturn(object, returnType, mavContainer, webRequest);
         // 封装成返回对象
         handlerMethodReturnValueHandler.handleReturnValue(object, returnType, mavContainer, webRequest);
     }
@@ -104,6 +111,31 @@ public class ResultHandlerMethodReturnValueHandler
             return resultAction.enumResult(returnValue);
         }
         return resultAction.objectResult(returnValue);
+    }
+
+    private void printReturn(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
+        NativeWebRequest webRequest) {
+        if(this.isPrint(webRequest,returnType)){
+            log.info(returnValue.toString());
+        }
+    }
+
+    private boolean isPrint( NativeWebRequest webRequest,MethodParameter returnType){
+        if(!this.resultConfig.getPrintUrl().isEmpty()){
+            DispatcherServletWebRequest request = (DispatcherServletWebRequest) webRequest;
+            String uri = request.getRequest().getRequestURI();
+            if(this.resultConfig.getPrintUrl().contains(uri)){
+                return true;
+            }
+        }
+        if(!this.resultConfig.getExcludeUrl().isEmpty()){
+            DispatcherServletWebRequest request = (DispatcherServletWebRequest) webRequest;
+            String uri = request.getRequest().getRequestURI();
+            if(this.resultConfig.getExcludeUrl().contains(uri)){
+                return false;
+            }
+        }
+        return this.resultConfig.isPrintResults();
     }
 
     @Override

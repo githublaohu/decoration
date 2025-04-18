@@ -9,27 +9,31 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
+
 package com.lamp.decoration.core.databases.queryClauseInte;
 
-import com.alibaba.fastjson.JSON;
-import com.lamp.decoration.core.DecorationContext;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
 import java.util.Objects;
 
+import com.alibaba.fastjson.JSON;
+import com.lamp.decoration.core.DecorationContext;
+
 
 /**
+ * srping cloud feign interceptor
+ *
  * @author laohu
  */
 public class QueryClauseRequestInterceptor implements RequestInterceptor {
 
-	@Override
-	public void apply(RequestTemplate template) {
-		QueryClause pageData = DecorationContext.get().getQueryClause();
-		if(Objects.nonNull(pageData)) {
-			template.header(DecorationContext.get().getQueryClauseKey(), JSON.toJSONString(pageData));
-		}
-	}
+    @Override
+    public void apply(RequestTemplate template) {
+        QueryClause pageData = DecorationContext.get().getQueryClause();
+        if (Objects.nonNull(pageData)) {
+            template.header(DecorationContext.get().getQueryClauseKey(), JSON.toJSONString(pageData));
+        }
+    }
 
 }

@@ -32,6 +32,7 @@ import com.lamp.decoration.core.result.ResultConfig;
 import com.lamp.decoration.core.result.ResultHandlerMethodReturnValueHandler;
 
 /**
+ * 用于得到 RequestResponseBodyMethodProcessor， 并且代理 RequestResponseBodyMethodProcessor
  * @author hahaha
  */
 public class OperationSpringMVCBehavior implements ApplicationContextAware, ApplicationListener<ContextRefreshedEvent> {
@@ -70,6 +71,10 @@ public class OperationSpringMVCBehavior implements ApplicationContextAware, Appl
         requestMappingHandlerAdapter.setReturnValueHandlers(newHandlers);
     }
 
+    /**
+     *  如果是 spring 内部 resultAction ， 需要等待 spring application 启动成功
+     * @param event the event to respond to
+     */
     @SuppressWarnings("unchecked")
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {

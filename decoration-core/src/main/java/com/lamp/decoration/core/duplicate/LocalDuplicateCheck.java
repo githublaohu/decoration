@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 本地换成做认证
  */
-public class LocadDuplicateCheck extends AbstractDuplicateCheck {
+public class LocalDuplicateCheck extends AbstractDuplicateCheck {
 
 	Map<String/* 方法名 */,Map<String /*校验id*/,Long>> duplicateRecord = new ConcurrentHashMap<>();
 	

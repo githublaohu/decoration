@@ -11,14 +11,16 @@
  */
 package com.lamp.decoration.core.result;
 
-import com.lamp.decoration.core.exception.ExceptionResult;
-
 import java.util.List;
+
+import com.lamp.decoration.core.exception.ExceptionResult;
 
 /**
  * @author laohu
  */
 public interface ResultAction<T> {
+
+
 
 	public Class<?> resultClass();
 	

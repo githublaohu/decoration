@@ -9,15 +9,17 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
+
 package com.lamp.decoration.core.spring;
 
-import com.lamp.decoration.core.ConstantConfig;
-import com.lamp.decoration.core.utils.SpringVersionRecognition;
+import java.lang.reflect.Constructor;
+
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.lang.reflect.Constructor;
+import com.lamp.decoration.core.ConstantConfig;
+import com.lamp.decoration.core.utils.SpringVersionRecognition;
 
 /**
  * @author laohu
@@ -30,11 +32,11 @@ public class QueryClauselnteWebMvcConfigurer implements WebMvcConfigurer {
     static {
 
         String className = SpringVersionRecognition.isJakarta() ?
-                "com.lamp.decoration.core.databases.queryClauseInte.JakartaQueryClauseInterceptor" :
-                "com.lamp.decoration.core.databases.queryClauseInte.QueryClauseInterceptor";
+            "com.lamp.decoration.core.databases.queryClauseInte.JakartaQueryClauseInterceptor" :
+            "com.lamp.decoration.core.databases.queryClauseInte.QueryClauseInterceptor";
         try {
             Class<?> clazz = Class.forName(className);
-            CONSTRUCTOR = clazz.getConstructor(ConstantConfig.class);
+            CONSTRUCTOR = clazz.getConstructor();
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -46,7 +48,9 @@ public class QueryClauselnteWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         try {
-            registry.addInterceptor((HandlerInterceptor) CONSTRUCTOR.newInstance(new ConstantConfig())).addPathPatterns("/**");
+            HandlerInterceptor handlerInterceptor = (HandlerInterceptor) CONSTRUCTOR.newInstance(new ConstantConfig());
+
+            registry.addInterceptor(handlerInterceptor).addPathPatterns("/**");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

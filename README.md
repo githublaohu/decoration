@@ -1,6 +1,6 @@
 ## 前言
 
-> decoration主要是解决一些重复性行为与开发过程需要的一些基础能力
+> decoration主要是解决一些重复性行为与开发过程需要的一些基础能力.把 光线，基础库，全部迁移进来。这有管理与发布比较简单。代码与质量都非常高，发布不会频繁
 
 1. 统一 spring mvc result
    1. 多返回类型，应该怎么处理 
@@ -75,6 +75,14 @@ decoration: { class }
 #### 行为接口
 
 > 行为接口（com.lamp.decoration.core.result.ResultAction）
+
+
+### 未完成
+1. 没有完成返回结果打印日志。打印的时候需要打印。client序列，链路跟踪序列。所以每次请求需要带一个序列号。需要一个系列号的key
+   1. 链路跟踪序列是否。加上client序列。这样就简单了
+      1. 这个client序列需要表达什么
+2. 是否提供异常监控机制。异常通知还是让异常框架去边
+3. 
 
 ## 统一 spring mvc 异常
 
@@ -192,7 +200,9 @@ public class DecorationCustomExceptionResult implements CustomExceptionResult {
 
 #### 使用方法:
 
-> 把分页参数作为请求头queryClause的value．queryClause是一个json。
+> 把分页参数作为请求头queryClause的value．queryClause是一个json。 queryClause: {"limitPageNum":1,limitSize:10}
+
+> 如果开启 all 拦截，会自动识别方法返回对应是否是 list ，如果是 list 会默认识别 queryClause
 
 ##### 传输参数:
 

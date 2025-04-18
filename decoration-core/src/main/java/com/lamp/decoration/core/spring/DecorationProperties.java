@@ -9,118 +9,71 @@
  *MERCHANTABILITY OR FIT FOR A PARTICULAR PURPOSE.
  *See the Mulan PubL v2 for more details.
  */
-package com.lamp.decoration.core.spring;
 
-import java.util.List;
+package com.lamp.decoration.core.spring;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import com.lamp.decoration.core.ConstantConfig;
+import com.lamp.decoration.core.exception.ExceptionConfig;
 import com.lamp.decoration.core.result.ResultConfig;
-import com.lamp.decoration.core.spring.plugs.DecorationCorsConfiguration;
-import com.lamp.decoration.core.spring.plugs.Swagger2Configuration;
-import com.lamp.decoration.core.spring.plugs.Swagger3Configuration;
 
 /**
- * 
  * @author laohu
- *
  */
 @ConfigurationProperties(prefix = DecorationProperties.DECORATION_PREFIX)
 public class DecorationProperties {
-	
-	public static final String  DECORATION_PREFIX = "decoration";
 
-	private String defaultExceptionResult;
+    public static final String DECORATION_PREFIX = "decoration";
 
-	private List<String> exceptionResult;
-	
-	private boolean enabled;
+    private boolean enabled;
 
-	private boolean corsEnable = false;
+    private ConstantConfig constantConfig = new ConstantConfig();
 
-	private ConstantConfig constantConfig  = new ConstantConfig();
+    private ResultConfig resultConfig = new ResultConfig();
 
-	private List<DecorationCorsConfiguration> corsConfigurationList;
+    private ExceptionConfig errorConfig = new ExceptionConfig();
 
-	private Swagger2Configuration swagger2;
+    private PlugsConfig plugsConfig = new PlugsConfig();
 
-	private Swagger3Configuration swagger3;
+    public ExceptionConfig getErrorConfig() {
+        return errorConfig;
+    }
 
-	private ResultConfig resultConfig = new ResultConfig();
+    public void setErrorConfig(ExceptionConfig errorConfig) {
+        this.errorConfig = errorConfig;
+    }
 
-	public ConstantConfig getConstantConfig() {
-		return constantConfig;
-	}
+    public ConstantConfig getConstantConfig() {
+        return constantConfig;
+    }
 
-	public void setConstantConfig(ConstantConfig constantConfig) {
-		this.constantConfig = constantConfig;
-	}
+    public void setConstantConfig(ConstantConfig constantConfig) {
+        this.constantConfig = constantConfig;
+    }
 
-	public List<DecorationCorsConfiguration> getCorsConfigurationList() {
-		return corsConfigurationList;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setCorsConfigurationList(
-			List<DecorationCorsConfiguration> corsConfigurationList) {
-		this.corsConfigurationList = corsConfigurationList;
-	}
-
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
 
-	public String getDefaultExceptionResult() {
-		return defaultExceptionResult;
-	}
+    public ResultConfig getResultConfig() {
+        return resultConfig;
+    }
 
-	public void setDefaultExceptionResult(String defaultExceptionResult) {
-		this.defaultExceptionResult = defaultExceptionResult;
-	}
+    public void setResultConfig(ResultConfig resultConfig) {
+        this.resultConfig = resultConfig;
+    }
 
-	public List<String> getExceptionResult() {
-		return exceptionResult;
-	}
+    public PlugsConfig getPlugsConfig() {
+        return plugsConfig;
+    }
 
-	public void setExceptionResult(List<String> exceptionResult) {
-		this.exceptionResult = exceptionResult;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Swagger2Configuration getSwagger2() {
-		return swagger2;
-	}
-
-	public void setSwagger2(Swagger2Configuration swagger2) {
-		this.swagger2 = swagger2;
-	}
-
-	public Swagger3Configuration getSwagger3() {
-		return swagger3;
-	}
-
-	public void setSwagger3(Swagger3Configuration swagger3) {
-		this.swagger3 = swagger3;
-	}
-
-	public boolean isCorsEnable() {
-		return corsEnable;
-	}
-
-	public void setCorsEnable(boolean corsEnable) {
-		this.corsEnable = corsEnable;
-	}
-
-	public ResultConfig getResultConfig() {
-		return resultConfig;
-	}
-
-	public void setResultConfig(ResultConfig resultConfig) {
-		this.resultConfig = resultConfig;
-	}
+    public void setPlugsConfig(PlugsConfig plugsConfig) {
+        this.plugsConfig = plugsConfig;
+    }
 }
