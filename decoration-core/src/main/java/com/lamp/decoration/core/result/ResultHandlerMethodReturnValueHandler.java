@@ -53,6 +53,8 @@ public class ResultHandlerMethodReturnValueHandler
 
     private Set<Class<?>> clazzSet = new HashSet<>();
 
+    private Map<Method, Boolean> methodMap = new ConcurrentHashMap<>();
+
     public ResultHandlerMethodReturnValueHandler(HandlerMethodReturnValueHandler handlerMethodReturnValueHandler, ResultConfig resultConfig) {
         this.handlerMethodReturnValueHandler = handlerMethodReturnValueHandler;
         this.resultConfig = resultConfig;
@@ -115,23 +117,44 @@ public class ResultHandlerMethodReturnValueHandler
 
     private void printReturn(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer,
         NativeWebRequest webRequest) {
-        if(this.isPrint(webRequest,returnType)){
+        if (this.isPrint(webRequest, returnType)) {
             log.info(returnValue.toString());
         }
     }
 
-    private boolean isPrint( NativeWebRequest webRequest,MethodParameter returnType){
-        if(!this.resultConfig.getPrintUrl().isEmpty()){
+    private boolean isPrint(NativeWebRequest webRequest, MethodParameter returnType) {
+        Boolean result = this.methodMap.get(returnType.getMethod());
+        if (Objects.isNull(result)) {
+            result = this.doIsPrint(webRequest, returnType);
+            this.methodMap.put(returnType.getMethod(), result);
+        }
+        return result;
+    }
+
+    private boolean doIsPrint(NativeWebRequest webRequest, MethodParameter returnType) {
+        if (!this.resultConfig.getPrintUrl().isEmpty()) {
             DispatcherServletWebRequest request = (DispatcherServletWebRequest) webRequest;
             String uri = request.getRequest().getRequestURI();
-            if(this.resultConfig.getPrintUrl().contains(uri)){
+            if (this.resultConfig.getPrintUrl().contains(uri)) {
                 return true;
             }
         }
-        if(!this.resultConfig.getExcludeUrl().isEmpty()){
+        if (!this.resultConfig.getPrintClasses().isEmpty()) {
+            String className = Objects.requireNonNull(returnType.getMethod()).getDeclaringClass().getName();
+            if (this.resultConfig.getPrintClasses().contains(className)) {
+                return true;
+            }
+        }
+        if (!this.resultConfig.getExcludeUrl().isEmpty()) {
             DispatcherServletWebRequest request = (DispatcherServletWebRequest) webRequest;
             String uri = request.getRequest().getRequestURI();
-            if(this.resultConfig.getExcludeUrl().contains(uri)){
+            if (this.resultConfig.getExcludeUrl().contains(uri)) {
+                return false;
+            }
+        }
+        if (!this.resultConfig.getExcludeClasses().isEmpty()) {
+            String className = Objects.requireNonNull(returnType.getMethod()).getDeclaringClass().getName();
+            if (this.resultConfig.getExcludeClasses().contains(className)) {
                 return false;
             }
         }

@@ -279,6 +279,9 @@ public void overbooking(Map<String, String> parameter){
 
 ## 完成情况
 
+## 待完成列表
+1. 自动过滤校验异常
+2. 完成测试
 
 ## 内部文档
 ### 发布
