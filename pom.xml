@@ -43,6 +43,10 @@
     <modules>
         <module>decoration-core</module>
         <module>decoration-servlet</module>
+        <module>foundation/foundation-api</module>
+        <module>foundation/foundation-base</module>
+        <module>foundation/foundation-network</module>
+        <module>foundation/foundation-gentle</module>
         <module>foundation</module>
     </modules>
     <dependencyManagement>
@@ -51,6 +55,17 @@
                 <groupId>${project.groupId}</groupId>
                 <artifactId>decoration-core</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.githublaohu</groupId>
+                <artifactId>test-mock-dependent</artifactId>
+                <version>1.0.8</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.44</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -162,7 +177,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
+                        <version>3.11.2</version>
+                        <configuration>
+                            <doclint>none</doclint>
+                        </configuration>
                         <executions>
                             <execution>
                                 <phase>package</phase>

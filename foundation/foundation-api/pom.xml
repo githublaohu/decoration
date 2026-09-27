@@ -3,8 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>cn.lampup</groupId>
-        <artifactId>foundation</artifactId>
+        <artifactId>decoration</artifactId>
         <version>0.1.20</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>foundation-api</artifactId>
     <name>${project.artifactId}</name>
@@ -30,13 +31,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.13.0</version>
                 <configuration>
+                    <source>8</source>
+                    <target>8</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.30</version>
+                            <version>1.18.44</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
